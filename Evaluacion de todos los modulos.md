@@ -104,3 +104,40 @@
     c. Lenguaje de Azure (Azure AI Language)
 
 **Justificación:** Aunque se utiliza el SDK de Microsoft Foundry para configurar el cliente, la interacción de chat real se realiza utilizando un cliente compatible con **Azure OpenAI**. El método `project_client.get_openai_client()` devuelve un cliente configurado que utiliza la librería `openai` para enviar los prompts al modelo.
+
+
+---
+
+# 4) Introducción al flujo de mensajes para desarrollar aplicaciones de modelo de lenguaje en Microsoft Foundry
+
+# Evaluación del Módulo: Introducción al Flujo de Mensajes (Prompt Flow)
+
+1.  **Un flujo usa una herramienta LLM para generar texto con un modelo de GPT-3.5. ¿Qué necesita crear para asegurarse de que el flujo de mensajes puede llamar de forma segura al modelo implementado desde Azure OpenAI?**
+
+    a. Runtimes
+
+    b. Conexiones (Connections) ✅
+
+    c. Herramientas (Tools)
+
+**Justificación:** Las **Conexiones (Connections)** almacenan de forma segura las credenciales y los puntos de conexión necesarios para que el flujo se comunique con servicios externos como Azure OpenAI, evitando exponer claves API en el código.
+
+2.  **Quiere integrar el flujo con un sitio web en línea. ¿Qué debe hacer para integrar fácilmente el flujo?**
+
+    a. Crear un entorno personalizado.
+
+    b. Crear un entorno de ejecución (Runtime).
+
+    c. Implementar el flujo en un punto de conexión (Endpoint). ✅
+
+**Justificación:** Para que una aplicación externa (como un sitio web) consuma el flujo, este debe ser **Implementado (Deployed)** en un **Punto de conexión en línea (Online Endpoint)**, el cual proporciona una URL estable y segura para realizar peticiones.
+
+3.  **Después de la implementación, observa que el flujo tiene un rendimiento inferior. ¿A qué fase del ciclo de vida de desarrollo debe revertir?**
+
+    a. Experimentación ✅
+
+    b. Evaluación y refinamiento
+
+    c. Producción
+
+**Justificación:** Según el ciclo de vida de desarrollo de aplicaciones LLM, si se detectan problemas de rendimiento en producción o evaluación, se debe regresar a la fase de **Experimentación** para ajustar los prompts, cambiar la lógica del flujo o probar nuevas configuraciones hasta obtener los resultados deseados.
