@@ -246,6 +246,11 @@ Para profundizar en su aprendizaje, se recomienda explorar:
 
 **Justificación:** Las **Conexiones (Connections)** almacenan de forma segura las credenciales y los puntos de conexión necesarios para que el flujo se comunique con servicios externos como Azure OpenAI, evitando exponer claves API en el código.
 
+**Glosario / Comentarios:**
+*   **"Flujo de mensajes"**: Traducción de *Prompt Flow*.
+*   **"Conexiones"**: Traducción de *Connections*.
+*   **"Herramienta LLM"**: Traducción de *LLM Tool*.
+
 2.  **Quiere integrar el flujo con un sitio web en línea. ¿Qué debe hacer para integrar fácilmente el flujo?**
 
     a. Crear un entorno personalizado.
@@ -256,6 +261,11 @@ Para profundizar en su aprendizaje, se recomienda explorar:
 
 **Justificación:** Para que una aplicación externa (como un sitio web) consuma el flujo, este debe ser **Implementado (Deployed)** en un **Punto de conexión en línea (Online Endpoint)**, el cual proporciona una URL estable y segura para realizar peticiones.
 
+**Glosario / Comentarios:**
+*   **"Punto de conexión"**: Traducción de *Endpoint* (a veces traducido como "Extremo" o "Punto final").
+*   **"Entorno de ejecución"**: Traducción de *Runtime*.
+*   **"Implementar"**: Traducción de *Deploy*.
+
 3.  **Después de la implementación, observa que el flujo tiene un rendimiento inferior. ¿A qué fase del ciclo de vida de desarrollo debe revertir?**
 
     a. Experimentación ✅
@@ -265,3 +275,6 @@ Para profundizar en su aprendizaje, se recomienda explorar:
     c. Producción
 
 **Justificación:** Según el ciclo de vida de desarrollo de aplicaciones LLM, si se detectan problemas de rendimiento en producción o evaluación, se debe regresar a la fase de **Experimentación** para ajustar los prompts, cambiar la lógica del flujo o probar nuevas configuraciones hasta obtener los resultados deseados.
+
+**Glosario / Comentarios:**
+*   **"Implementación"**: Traducción de *Deployment*.

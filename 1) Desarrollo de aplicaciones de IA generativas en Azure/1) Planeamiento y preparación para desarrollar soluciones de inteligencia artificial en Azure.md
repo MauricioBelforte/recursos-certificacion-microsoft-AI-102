@@ -21,7 +21,7 @@ Microsoft Foundry proporciona el portal de Microsoft Foundry, una interfaz visua
 # Evaluación del módulo
 
 
-1. ¿Qué recurso de Azure proporciona servicios de lenguaje y visión desde un único punto de conexión?
+1.  **¿Qué recurso de Azure proporciona servicios de lenguaje y visión desde un único punto de conexión?**
 
     a. Idioma de Azure
 
@@ -31,7 +31,11 @@ Microsoft Foundry proporciona el portal de Microsoft Foundry, una interfaz visua
 
 **Justificación:** Los recursos de "Herramientas de fundición" (Foundry Tools) están diseñados para agrupar varios servicios de IA de Azure, como Lenguaje y Visión, bajo un único punto de conexión y una sola clave de API, simplificando su gestión y uso en las aplicaciones.
 
-2. Tiene previsto crear una aplicación de chat sencilla que use un modelo de IA generativa. ¿Qué tipo de proyecto debe crear?
+**Glosario / Comentarios:**
+*   **"Idioma de Azure"**: Traducción de *Azure AI Language*.
+*   **"Herramientas de fundición"**: Traducción de *Foundry Tools* (En el ecosistema Azure real, esto equivale a un recurso multi-servicio de **Azure AI Services**).
+
+2.  **Tiene previsto crear una aplicación de chat sencilla que use un modelo de IA generativa. ¿Qué tipo de proyecto debe crear?**
 
     a. Proyecto de Microsoft Foundry. ✅
 
@@ -41,7 +45,10 @@ Microsoft Foundry proporciona el portal de Microsoft Foundry, una interfaz visua
 
 **Justificación:** Microsoft Foundry es la plataforma recomendada para el desarrollo de proyectos de IA, ya que integra modelos avanzados como los de Azure OpenAI (necesarios para IA generativa) y proporciona herramientas para la gestión del ciclo de vida del proyecto.
 
-3. ¿Qué SDK le permite conectarse a los recursos de un proyecto?
+**Glosario / Comentarios:**
+*   **"Proyecto basado en azure AI Hub"**: Traducción de *Azure AI Hub-based project*.
+
+3.  **¿Qué SDK le permite conectarse a los recursos de un proyecto?**
 
     a. Foundry Tools SDK
 
@@ -50,3 +57,6 @@ Microsoft Foundry proporciona el portal de Microsoft Foundry, una interfaz visua
     c. Microsoft Foundry SDK ✅
 
 **Justificación:** El SDK de Microsoft Foundry está específicamente diseñado para interactuar mediante programación con los recursos que se encuentran dentro de un proyecto de Microsoft Foundry, permitiendo la creación y gestión de soluciones de IA.
+
+**Glosario / Comentarios:**
+*   **"SDK de núcleo semántico"**: Traducción literal de *Semantic Kernel SDK*.

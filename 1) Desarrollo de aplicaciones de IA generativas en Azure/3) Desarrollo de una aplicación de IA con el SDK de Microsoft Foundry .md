@@ -186,6 +186,7 @@ La clase `AIProjectClient` del SDK funciona como un **proxy** programático para
 *   **Integración:** El SDK unifica el acceso a múltiples servicios de IA.
 *   **Gestión:** `AIProjectClient` maneja la conexión y configuración del proyecto.
 
+---
 
 # Evaluación del módulo
 
@@ -199,6 +200,10 @@ La clase `AIProjectClient` del SDK funciona como un **proxy** programático para
 
 **Justificación:** La clase `AIProjectClient` es el punto de entrada principal del SDK. Se inicializa con la cadena de conexión o el punto de conexión (endpoint) y actúa como un proxy para interactuar con los recursos y configuraciones del proyecto.
 
+**Glosario / Comentarios:**
+*   **"Propiedades de conexión"**: Traducción de *Connection properties*.
+*   **"Objeto proxy"**: Refiere al patrón de diseño donde el cliente actúa como intermediario local para el servicio remoto.
+
 2.  **¿Qué valor se necesita para crear una instancia de un objeto AIProjectClient?**
 
     a. Punto de conexión del proyecto (Project Endpoint) ✅
@@ -208,6 +213,11 @@ La clase `AIProjectClient` del SDK funciona como un **proxy** programático para
     c. Identificador de suscripción de Azure
 
 **Justificación:** Como se observa en los ejemplos de código, el constructor de `AIProjectClient` requiere el parámetro `endpoint` (el punto de conexión del proyecto, a veces mal traducido como "final del proyecto") y un objeto de credenciales (como `DefaultAzureCredential`).
+
+**Glosario / Comentarios:**
+*   **"Punto de conexión del proyecto"**: Traducción de *Project Endpoint*.
+*   **"Identificador de suscripción"**: Traducción de *Subscription ID*.
+*   **"Clave de autorización"**: Traducción de *Authorization Key*.
 
 3.  **¿Qué SDK debe usar para chatear con un modelo que se implementa en un recurso de Microsoft Foundry?**
 
@@ -219,7 +229,6 @@ La clase `AIProjectClient` del SDK funciona como un **proxy** programático para
 
 **Justificación:** Aunque se utiliza el SDK de Microsoft Foundry para configurar el cliente, la interacción de chat real se realiza utilizando un cliente compatible con **Azure OpenAI**. El método `project_client.get_openai_client()` devuelve un cliente configurado que utiliza la librería `openai` para enviar los prompts al modelo.
 
-
-
-
-
+**Glosario / Comentarios:**
+*   **"Lenguaje de Azure"**: Traducción frecuente y confusa de *Azure AI Language* (el servicio de NLP).
+*   **"Recurso"**: Traducción de *Resource*.
