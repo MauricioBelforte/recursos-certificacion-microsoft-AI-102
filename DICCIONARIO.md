@@ -165,5 +165,30 @@ Este archivo centraliza los términos técnicos clave para la certificación AI-
     *   Inicialización
 
 ---
+
+### Fine-tuning (Ajuste Fino)
+
+*   **Explicación:** Proceso de re-entrenar un modelo base con un conjunto de datos específico para adaptar su estilo, tono o conocimientos a un dominio particular.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Ajuste preciso
+    *   Optimización
+
+---
+
+### AI Impact Assessment (Evaluación de Impacto de IA)
+
+*   **Explicación:** Documento o proceso utilizado en la fase de identificación para registrar los usos previstos, los riesgos y los daños potenciales de un sistema de IA antes de su desarrollo o despliegue.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Valoración de impacto de la IA
+
+---
+
+### Content Filters (Filtros de Contenido)
+
+*   **Explicación:** Mecanismo de seguridad en la capa del sistema que intercepta y bloquea tanto las entradas del usuario como las salidas del modelo si detecta contenido dañino (odio, violencia, etc.).
+*   **Traducciones Comunes (Incorrectas):**
+    *   Filtros de contenido (Correcto, pero a veces aparece como "Filtros de seguridad")
+
+---
 ---
 ---

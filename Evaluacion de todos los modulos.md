@@ -284,3 +284,49 @@
 
 **Glosario / Comentarios:**
 *   **"Opción avanzada"**: Se refiere a los Hiperparámetros.
+
+---
+
+# 7) Implementación de una solución de IA generativa responsable en Microsoft Foundry
+
+## Evaluación del módulo
+
+1.  **¿Por qué debe considerar la posibilidad de crear una valoración de impacto de la IA al diseñar una solución de IA generativa?**
+
+    a. Para construir un caso legal que le permita eximirse de responsabilidad por los daños provocados por la solución
+
+    b. Para documentar el propósito, el uso esperado y los daños posibles para la solución ✅
+
+    c. Para evaluar el costo de los servicios en la nube necesarios para implementar la solución
+
+**Justificación:** La **Evaluación de Impacto de la IA (AI Impact Assessment)** es una herramienta clave en la fase de identificación para documentar los usos previstos, los riesgos y los daños potenciales, no para temas legales o de costos.
+
+**Glosario / Comentarios:**
+*   **"Valoración de impacto de la IA"**: Traducción de *AI Impact Assessment*.
+
+2.  **¿Qué funcionalidad de Microsoft Foundry ayuda a mitigar la generación de contenido perjudicial en el nivel del sistema de seguridad?**
+
+    a. soporte para el modelo DALL-E
+
+    b. Ajuste preciso
+
+    c. Filtros de contenido ✅
+
+**Justificación:** Los **Filtros de contenido (Content Filters)** actúan en la capa del sistema de seguridad interceptando entradas y salidas dañinas. El "Ajuste preciso" (Fine-tuning) actúa en la capa del modelo.
+
+**Glosario / Comentarios:**
+*   **"Filtros de contenido"**: Traducción de *Content Filters*.
+*   **"Ajuste preciso"**: Traducción de *Fine-tuning*.
+
+3.  **¿Por qué debe considerar un plan de entrega por fases para la solución de IA generativa?**
+
+    a. Para permitirle recopilar comentarios e identificar problemas antes de publicar la solución de forma más amplia ✅
+
+    b. Para eliminar la necesidad de mapear, medir, mitigar y gestionar posibles daños
+
+    c. Para permitirle cobrar más por la solución
+
+**Justificación:** La **Entrega por fases (Phased Delivery)** es una estrategia de operación que permite detectar problemas en un grupo reducido antes del lanzamiento general. No elimina la necesidad del proceso de IA responsable.
+
+**Glosario / Comentarios:**
+*   **"Plan de entrega por fases"**: Traducción de *Phased Delivery*.
