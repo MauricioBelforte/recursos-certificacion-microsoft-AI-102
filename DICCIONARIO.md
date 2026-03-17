@@ -133,5 +133,37 @@ Este archivo centraliza los términos técnicos clave para la certificación AI-
     *   Herramientas de fundición
 
 ---
+
+### JSONL (JSON Lines)
+
+*   **Explicación:** Formato de texto donde cada línea es un objeto JSON independiente. Es el estándar requerido para los conjuntos de datos de entrenamiento en los trabajos de ajuste fino (fine-tuning) de Azure AI.
+*   **Traducciones Comunes (Incorrectas):**
+    *   (No suele traducirse mal, pero es un término clave)
+
+---
+
+### Epoch (Época)
+
+*   **Explicación:** Un ciclo completo de entrenamiento en el que el algoritmo ha procesado todos los ejemplos del conjunto de datos una vez. El hiperparámetro `n_epochs` controla cuántas veces se repite este ciclo.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Épocas
+
+---
+
+### Batch Size (Tamaño del lote)
+
+*   **Explicación:** El número de ejemplos de entrenamiento que se procesan en una sola iteración (un paso hacia adelante y hacia atrás) antes de que el modelo actualice sus pesos.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Tamaño del lote
+
+---
+
+### Seed (Semilla)
+
+*   **Explicación:** Un número entero que se utiliza para inicializar el generador de números aleatorios en un proceso de entrenamiento. Usar la misma semilla garantiza que los resultados sean reproducibles.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Inicialización
+
+---
 ---
 ---

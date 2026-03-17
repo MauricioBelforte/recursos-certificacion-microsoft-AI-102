@@ -239,3 +239,48 @@
 
 **Glosario / Comentarios:**
 *   **"Datos de conexión a tierra"**: Traducción de *Grounding data* (Datos de fundamentación).
+
+---
+
+# 6) Ajuste de un modelo de lenguaje con Microsoft Foundry
+
+## Evaluación del módulo
+
+1.  **¿Cómo se deben dar formato a los datos para optimizarlos?**
+
+    a. JSONL ✅
+
+    b. YAML
+
+    c. HTML
+
+**Justificación:** El proceso de ajuste fino (fine-tuning) para modelos de chat en Azure AI requiere que los datos de entrenamiento estén en formato **JSON Lines (JSONL)**, donde cada línea es un objeto JSON que representa una conversación.
+
+**Glosario / Comentarios:**
+*   **"Optimizar"**: Traducción de *Fine-tuning* (Ajuste fino).
+
+2.  **¿Qué optimiza la optimización en el modelo?**
+
+    a. Qué necesita saber el modelo.
+
+    b. Cómo debe actuar el modelo. ✅
+
+    c. Qué palabras no se permiten.
+
+**Justificación:** Mientras que el patrón RAG se enfoca en proveer conocimiento al modelo ("qué necesita saber"), el ajuste fino (fine-tuning) se utiliza principalmente para modificar el **comportamiento** del modelo ("cómo debe actuar"), como su estilo, tono y formato de respuesta.
+
+**Glosario / Comentarios:**
+*   **"Optimización"**: Traducción de *Fine-tuning*.
+
+3.  **¿Qué opción avanzada hace referencia a un ciclo completo a través del conjunto de datos de entrenamiento?**
+
+    a. seed
+
+    b. batch_size
+
+    c. n_epochs ✅
+
+**Justificación:** El hiperparámetro **n_epochs** (Número de Épocas) define cuántas veces el algoritmo de entrenamiento procesará el conjunto de datos completo. `seed` es para la reproducibilidad y `batch_size` es el número de muestras por iteración.
+
+**Glosario / Comentarios:**
+*   **"Opción avanzada"**: Se refiere a los Hiperparámetros.
