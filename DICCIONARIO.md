@@ -190,5 +190,14 @@ Este archivo centraliza los términos técnicos clave para la certificación AI-
     *   Filtros de contenido (Correcto, pero a veces aparece como "Filtros de seguridad")
 
 ---
+
+### Ground Truth (Verdad Terreno)
+
+*   **Explicación:** La respuesta correcta o esperada con la que se compara la salida del modelo durante una evaluación para medir su precisión.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Verdad básica
+    *   Verdad fundamental
+
+---
 ---
 ---

@@ -330,3 +330,46 @@
 
 **Glosario / Comentarios:**
 *   **"Plan de entrega por fases"**: Traducción de *Phased Delivery*.
+
+---
+
+# 8) Evalúa el rendimiento de IA generativa en el portal de Microsoft Foundry
+
+## Evaluación del módulo
+
+1.  **¿Qué técnica de evaluación puede usar para aplicar su propio juicio sobre la calidad de las respuestas a un conjunto de indicaciones específicas?**
+
+    a. Puntos de referencia de modelos
+
+    b. Evaluaciones manuales ✅
+
+    c. Evaluaciones automatizadas
+
+**Justificación:** Las **Evaluaciones manuales (Manual Evaluations)** permiten a los evaluadores humanos revisar y calificar las respuestas basándose en su propio juicio, lo cual es útil para capturar matices que las métricas automáticas pierden.
+
+**Glosario / Comentarios:**
+*   **"Puntos de referencia de modelos"**: Traducción de *Model Benchmarks*.
+*   **"Indicaciones"**: Traducción de *Prompts*.
+
+2.  **¿Qué evaluador compara las respuestas generadas a la verdad básica en función de las métricas estándar?**
+
+    a. Coherencia
+
+    b. Puntuación F1 ✅
+
+    c. Material protegido
+
+**Justificación:** La **Puntuación F1 (F1 Score)** es una métrica estándar de NLP que mide la superposición de palabras entre la respuesta generada y la verdad terreno (ground truth/verdad básica).
+
+**Glosario / Comentarios:**
+*   **"Verdad básica"**: Traducción de *Ground Truth*.
+
+3.  **¿Qué métrica del evaluador usa un modelo de IA para juzgar la estructura y el flujo lógico de ideas en una respuesta?**
+
+    a. Coherencia ✅
+
+    b. Puntuación F1
+
+    c. material protegido
+
+**Justificación:** La métrica de **Coherencia (Coherence)** utiliza un modelo de IA para evaluar qué tan bien fluye el texto y si tiene una estructura lógica.
