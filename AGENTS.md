@@ -87,5 +87,19 @@ Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente de
 ### C. Flujo de Trabajo Automático (`traductor.md` -> Módulo Activo)
 *   Al recibir una solicitud (`mejorar`, `formatear`, `lab`) sobre el contenido de `traductor.md`:
     1.  Procesar el contenido según las reglas del comando invocado.
-    2.  **Mover** el resultado: Generar un diff que inserte el contenido mejorado en la ubicación correcta del **"Módulo Activo"** (el archivo con numeración más alta de la carpeta actual).
-    3.  **Limpiar** `traductor.md`: Generar un diff que vacíe este archivo para dejarlo listo para el siguiente uso.
+    2.  **Determinar Destino (Regla de Consolidación):**
+        *   **Nuevo Archivo:** SOLO si el texto es la **Introducción** de un nuevo módulo (inicia un tema nuevo).
+        *   **Mismo Archivo:** Si son secciones teóricas, laboratorios, resúmenes o evaluaciones, se **anexan** al final del archivo del módulo actual. **NO crear archivos separados** (ej. 3, 4, 5) para partes de un mismo módulo.
+    3.  **Mover** el resultado: Generar un diff que inserte el contenido en el archivo determinado.
+    4.  **Limpiar** `traductor.md`: Generar un diff que vacíe este archivo para dejarlo listo para el siguiente uso.
+
+---
+
+## 5. Estructura de Carpetas y Numeración
+
+Al iniciar un **nuevo tema** o bloque de estudio:
+
+1.  **Nueva Carpeta:** Se debe verificar que exista una carpeta nueva numerada secuencialmente para el tema (ej. `2) Desarrollo de agentes...`).
+2.  **Reinicio de Numeración:** Dentro de la nueva carpeta de tema, la numeración de los módulos (archivos `.md`) se reinicia obligatoriamente desde **1**.
+    *   *Incorrecto:* `.../2) Nuevo Tema/9) Modulo.md` (Continuando la numeración de la carpeta anterior).
+    *   *Correcto:* `.../2) Nuevo Tema/1) Modulo.md`.

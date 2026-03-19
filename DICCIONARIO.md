@@ -199,5 +199,21 @@ Este archivo centraliza los términos técnicos clave para la certificación AI-
     *   Verdad fundamental
 
 ---
+
+### Knowledge (Conocimiento)
+
+*   **Explicación:** En el contexto de agentes de IA, es el componente que almacena fuentes de datos (archivos, búsquedas) para que el agente pueda fundamentar sus respuestas en información específica.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Conocimientos
+
+---
+
+### Code Interpreter (Intérprete de Código)
+
+*   **Explicación:** Herramienta integrada en los agentes de IA que les permite escribir y ejecutar código (generalmente Python) en un entorno seguro (sandbox) para realizar cálculos, generar gráficos o procesar archivos.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Herramienta de intérprete de código
+
+---
 ---
 ---
