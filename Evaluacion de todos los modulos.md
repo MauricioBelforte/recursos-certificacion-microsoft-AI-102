@@ -194,6 +194,49 @@
 
 ---
 
+# 1) Introducción al desarrollo de agentes de IA en Azure
+
+## Evaluación del módulo
+
+1.  **¿Cuál de las siguientes describe mejor un agente de IA?**
+
+    a. Desarrollador que se especializa en la creación de soluciones de inteligencia artificial generativas.
+
+    b. Un servicio de software que usa inteligencia artificial para ayudar a los usuarios con información y automatización de tareas. ✅
+
+    c. Marketplace para componentes de software de inteligencia artificial listos para usar.
+
+**Justificación:** Un **Agente de IA** se define como un sistema de software autónomo que utiliza modelos de IA para percibir su entorno, razonar y tomar medidas para ayudar a los usuarios o completar tareas, a diferencia de un simple chatbot o un rol humano.
+
+2.  **¿Qué servicio de desarrollo de agentes de IA ofrece una elección de modelos de IA generativos de varios proveedores en el catálogo de modelos de Microsoft Foundry?**
+
+    a. Servicio microsoft Foundry Agent ✅
+
+    b. API de asistentes de OpenAI
+
+    c. Microsoft 365 Copilot Chat
+
+**Justificación:** El **Servicio de Agentes de Microsoft Foundry (Microsoft Foundry Agent Service)** permite utilizar una amplia gama de modelos disponibles en el catálogo de Foundry (incluyendo modelos de OpenAI y otros de código abierto), mientras que la API de Asistentes de OpenAI se limita a los modelos de OpenAI.
+
+**Glosario / Comentarios:**
+*   **"Servicio microsoft Foundry Agent"**: Traducción de *Microsoft Foundry Agent Service*.
+
+3.  **¿Qué elemento de un agente de Foundry Agent Service permite fundamentar con datos contextuales?**
+
+    a. Modelo
+
+    b. Herramienta de intérprete de código
+
+    c. Conocimientos ✅
+
+**Justificación:** El componente de **Conocimientos (Knowledge)** es el encargado específicamente de almacenar y gestionar los datos externos (archivos, índices de búsqueda) que el agente utiliza para **fundamentar (ground)** sus respuestas y evitar alucinaciones.
+
+**Glosario / Comentarios:**
+*   **"Conocimientos"**: Traducción de *Knowledge*.
+*   **"Herramienta de intérprete de código"**: Traducción de *Code Interpreter Tool*.
+
+---
+
 # 5) Desarrollo de una solución basada en RAG con sus propios datos mediante Microsoft Foundry
 
 # Evaluación del módulo
