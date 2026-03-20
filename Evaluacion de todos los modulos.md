@@ -416,3 +416,48 @@
     c. material protegido
 
 **Justificación:** La métrica de **Coherencia (Coherence)** utiliza un modelo de IA para evaluar qué tan bien fluye el texto y si tiene una estructura lógica.
+
+---
+
+# 2) Desarrollo de un agente de IA con el servicio Microsoft Foundry Agent
+
+## Evaluación del módulo
+
+1.  **¿Cuál es el primer paso para configurar microsoft Foundry Agent Service?**
+
+    a. Implementación de un modelo compatible
+
+    b. Creación de un proyecto de Microsoft Foundry ✅
+
+    c. Realización de llamadas de API mediante SDK
+
+**Justificación:** El servicio de agentes opera dentro del contexto de un **Proyecto de Microsoft Foundry**. Antes de poder implementar modelos o llamar APIs, se debe establecer este contenedor lógico que agrupa los recursos y configuraciones.
+
+**Glosario / Comentarios:**
+*   **"Implementación"**: Traducción de *Deployment*.
+
+2.  **¿Qué elemento de una definición de agente se usa para especificar su comportamiento y restricciones?**
+
+    a. Modelo
+
+    b. Instrucciones ✅
+
+    c. Herramientas
+
+**Justificación:** Las **Instrucciones (Instructions)** actúan como el prompt del sistema del agente, definiendo su personalidad, objetivos y, crucialmente, sus límites y restricciones de comportamiento.
+
+**Glosario / Comentarios:**
+*   **"Instrucciones"**: Traducción de *Instructions*.
+
+3.  **¿Qué herramienta debe usar para permitir que un agente genere código dinámicamente para realizar tareas o acceder a datos de archivos?**
+
+    a. Intérprete de código ✅
+
+    b. Funciones de Azure
+
+    c. Búsqueda de Azure AI
+
+**Justificación:** El **Intérprete de código (Code Interpreter)** es la herramienta diseñada específicamente para proporcionar un entorno aislado (sandbox) donde el agente puede escribir y ejecutar código (generalmente Python) para procesar archivos y realizar cálculos.
+
+**Glosario / Comentarios:**
+*   **"Intérprete de código"**: Traducción de *Code Interpreter*.

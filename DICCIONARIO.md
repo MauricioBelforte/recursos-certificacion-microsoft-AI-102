@@ -215,5 +215,13 @@ Este archivo centraliza los términos técnicos clave para la certificación AI-
     *   Herramienta de intérprete de código
 
 ---
+
+### Instructions (Instrucciones)
+
+*   **Explicación:** En el contexto de Agentes de IA (Foundry Agents), es el conjunto de directivas (similar al System Message) que define la personalidad, los objetivos y las restricciones de comportamiento del agente.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Instrucciones (Es la traducción correcta, pero el término técnico en SDK es `instructions`)
+
+---
 ---
 ---
