@@ -461,3 +461,45 @@
 
 **Glosario / Comentarios:**
 *   **"Intérprete de código"**: Traducción de *Code Interpreter*.
+
+---
+
+# 3) Desarrollo de agentes de IA con la extensión Microsoft Foundry en Visual Studio Code
+
+## Evaluación del módulo
+
+1.  **Al crear un nuevo agente en la extensión Microsoft Foundry, ¿qué dos vistas se abren automáticamente?**
+
+    a. El archivo YAML y la vista del entorno de pruebas
+
+    b. El archivo YAML y la vista Diseñador ✅
+
+    c. La vista Diseñador y la vista Generación de código
+
+**Justificación:** Al crear un agente, la extensión abre automáticamente tanto el archivo de configuración `.yaml` (para edición de código) como la vista del **Diseñador (Designer)** (para edición visual) lado a lado.
+
+2.  **¿Cuál es una ventaja clave del uso de servidores del Protocolo de contexto de modelo (MCP) para las herramientas del agente?**
+
+    a. Solo funcionan con herramientas creadas por Microsoft
+
+    b. Proporcionan componentes reutilizables que funcionan en distintos agentes. ✅
+
+    c. Reemplazan la necesidad de todas las herramientas integradas
+
+**Justificación:** El **Protocolo de Contexto de Modelo (Model Context Protocol - MCP)** es un estándar abierto que permite conectar herramientas de manera consistente, fomentando la creación de componentes reutilizables por la comunidad que funcionan en diferentes implementaciones de agentes.
+
+**Glosario / Comentarios:**
+*   **"Protocolo de contexto de modelo"**: Traducción de *Model Context Protocol (MCP)*.
+
+3.  **¿Cómo administra el servicio Microsoft Foundry Agent las sesiones de conversación cuando los usuarios interactúan con agentes implementados?**
+
+    a. El sistema crea subprocesos individuales para cada conversación para administrar el contexto y el historial de mensajes. ✅
+
+    b. Cada mensaje se procesa de forma independiente sin historial de conversaciones
+
+    c. Todas las conversaciones de usuario se combinan en una sesión global compartida
+
+**Justificación:** El servicio gestiona el estado y el contexto mediante **Hilos (Threads)** (traducido aquí como "subprocesos"). Cada conversación es un hilo único que almacena el historial de mensajes e interacciones.
+
+**Glosario / Comentarios:**
+*   **"Subprocesos"**: Traducción de *Threads* (Hilos).

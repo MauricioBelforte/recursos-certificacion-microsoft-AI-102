@@ -55,26 +55,24 @@ Cuando se solicite **formatear** una evaluación, se debe aplicar estrictamente 
 
 ## 3. Formato de Laboratorios (Comando: "lab")
 
-Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente debe seguir estas reglas:
+Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente debe seguir este nuevo flujo de trabajo para evitar el truncamiento de respuestas:
 
 1.  **Fuente:** El contenido original estará en `traductor.md`.
-2.  **Adaptación para Lectura:** El objetivo es transformar las instrucciones prácticas en una descripción narrativa que se pueda entender sin ejecutar los pasos.
-    - Reescribir los pasos de "hacer clic aquí" o "ejecutar este comando" como una explicación de _qué se está haciendo y por qué_.
-    - **Precisión del Código:** En la narrativa explicativa del laboratorio, **NO se debe resumir ni acortar el código**. Los fragmentos deben mantenerse precisos y fieles al original para evitar pérdidas de información.
-    - Estructurar el laboratorio con títulos claros, listas y bloques de código para los ejemplos.
-3.  **Manejo de Traducciones y Terminología:**
-    - **Conservar Términos Confusos:** Si el texto original contiene términos mal traducidos (comunes en los exámenes en español), **se deben mantener** para facilitar el reconocimiento durante el examen.
-    - **Aclaración en Inglés:** Inmediatamente después del término mal traducido, colocar entre paréntesis el término correcto en inglés y/o la traducción correcta.
-      - Ejemplo: "Seleccione la base (Grounding)..."
-    - **Notas y Glosario:** Agregar notas aclaratorias o pequeños glosarios integrados en el texto cuando sea necesario para explicar contextos confusos.
-    - **Traducción de Prompts:** Si el laboratorio incluye ejemplos de prompts en inglés (como Mensajes de Sistema o preguntas de usuario), se debe proporcionar una traducción al español debajo del original para clarificar su propósito y contenido.
-4.  **Ubicación en el Módulo:** El contenido del laboratorio procesado debe insertarse en el archivo del módulo activo, justo antes del Resumen y la Evaluación.
-5.  **Código Completo:**
-    - **Lógica de Generación (Autollamado):** Para evitar errores o truncamientos, el asistente debe generar este bloque **después** de haber procesado el Resumen y la Evaluación. Debe volver a leer ("autollamado") el contenido del laboratorio original para asegurar que el código se genere completo y sin resúmenes.
-    - **Ubicación:** Este bloque se inserta al final de la sección del laboratorio.
-    - Este código debe estar **totalmente comentado en español** (línea por línea) explicando qué hace cada función o bloque.
+2.  **Primer Paso: Generar `traducido.md`**
+    - Realizar una traducción completa del contenido del laboratorio desde `traductor.md`.
+    - **No resumir ni crear una narrativa.** Se debe mantener la estructura original del laboratorio, incluyendo todos los bloques de código.
+    - Dentro de los bloques de código, traducir los comentarios y los prompts al español.
+    - **NO incluir la sección "Código Completo"** en este archivo.
+    - Escribir el resultado en el archivo existente `traducido.md` en la raíz del proyecto, sobrescribiendo su contenido.
+
+3.  **Segundo Paso: Generar `codigo_traducido.md`**
+    - Escribir en el archivo existente en la raíz llamado `codigo_traducido.md`.
+    - Este archivo contendrá **únicamente el código completo del laboratorio**, formateado como si fuera un archivo `.py` pero dentro de bloques de código Markdown.
+    - Si el laboratorio involucra múltiples archivos de código (ej. `functions.py`, `agent.py`), deben representarse en este único archivo, separados por bloques de código y con comentarios que indiquen el nombre del archivo original.
+    - El código debe estar **totalmente comentado en español** (línea por línea) explicando qué hace cada función, bloque e importación.
     - Los prompts y mensajes del sistema dentro del código deben estar traducidos o explicados.
-    - Las declaraciones de **importación (imports)** también deben comentarse para explicar el propósito de cada librería, especialmente en módulos que combinan diferentes SDKs (ej. Agents y Computer Vision).
+
+4.  **Sin Limpieza:** No se debe generar un diff para limpiar `traductor.md`. El usuario se encargará de esa tarea manualmente.
 
 ---
 
@@ -95,12 +93,14 @@ Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente de
 ### C. Flujo de Trabajo Automático (`traductor.md` -> Módulo Activo)
 
 - Al recibir una solicitud (`mejorar`, `formatear`, `lab`) sobre el contenido de `traductor.md`:
-  1.  Procesar el contenido según las reglas del comando invocado.
+  1.  Procesar el contenido según las reglas del comando invocado (para `lab`, seguir el nuevo flujo de dos archivos).
   2.  **Determinar Destino (Regla de Consolidación):**
+      - **Carpeta Específica:** Si el usuario indica un número de carpeta explícito, el archivo debe guardarse obligatoriamente en esa carpeta.
       - **Nuevo Archivo:** SOLO si el texto es la **Introducción** de un nuevo módulo (inicia un tema nuevo).
+        - **Ubicación:** Identificar la carpeta de tema con la numeración más alta y guardar el archivo dentro. NUNCA crear archivos en la raíz.
       - **Mismo Archivo:** Si son secciones teóricas, laboratorios, resúmenes o evaluaciones, se **anexan** al final del archivo del módulo actual. **NO crear archivos separados** (ej. 3, 4, 5) para partes de un mismo módulo.
   3.  **Mover** el resultado: Generar un diff que inserte el contenido en el archivo determinado.
-  4.  **Limpiar** `traductor.md`: Generar un diff que vacíe este archivo para dejarlo listo para el siguiente uso.
+  4.  **Limpiar** `traductor.md`: Generar un diff que vacíe este archivo para dejarlo listo para el siguiente uso, **excepto cuando el comando es `lab`**.
 
 ---
 
