@@ -61,7 +61,7 @@ Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente de
 2.  **Primer Paso: Generar `traducido.md`**
     - Realizar una traducción completa del contenido del laboratorio desde `traductor.md`.
     - **No resumir ni crear una narrativa.** Se debe mantener la estructura original del laboratorio, incluyendo todos los bloques de código.
-    - Dentro de los bloques de código, traducir los comentarios y los prompts al español.
+    - Dentro de los bloques de código, traducir los comentarios y los prompts al español. Además, se deben agregar **comentarios explicativos de alto nivel** en los fragmentos clave para aclarar qué está ocurriendo en ese paso (contexto, lógica o arquitectura).
     - **NO incluir la sección "Código Completo"** en este archivo.
     - Escribir el resultado en el archivo existente `traducido.md` en la raíz del proyecto, sobrescribiendo su contenido.
 
@@ -69,7 +69,7 @@ Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente de
     - Escribir en el archivo existente en la raíz llamado `codigo_traducido.md`.
     - Este archivo contendrá **únicamente el código completo del laboratorio**, formateado como si fuera un archivo `.py` pero dentro de bloques de código Markdown.
     - Si el laboratorio involucra múltiples archivos de código (ej. `functions.py`, `agent.py`), deben representarse en este único archivo, separados por bloques de código y con comentarios que indiquen el nombre del archivo original.
-    - El código debe estar **totalmente comentado en español** (línea por línea) explicando qué hace cada función, bloque e importación.
+    - El código debe estar **profusamente comentado en español**. No limitarse a una traducción literal; se deben agregar **comentarios explicativos de alto nivel** que aclaren el flujo, la arquitectura y el propósito de los bloques clave (ej. "Aquí definimos la herramienta para la IA, pero la ejecución real ocurre más abajo").
     - Los prompts y mensajes del sistema dentro del código deben estar traducidos o explicados.
 
 4.  **Sin Limpieza:** No se debe generar un diff para limpiar `traductor.md`. El usuario se encargará de esa tarea manualmente.

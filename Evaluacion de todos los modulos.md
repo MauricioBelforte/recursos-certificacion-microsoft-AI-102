@@ -503,3 +503,46 @@
 
 **Glosario / Comentarios:**
 *   **"Subprocesos"**: Traducción de *Threads* (Hilos).
+
+---
+
+# 4) Integración de herramientas personalizadas en el agente
+
+## Evaluación del módulo
+
+1.  **¿Qué son las herramientas personalizadas y cómo pueden ayudarle a desarrollar agentes eficaces con el servicio Microsoft Foundry Agent?**
+
+    a. Funciones disponibles que un agente puede usar para ampliar sus funcionalidades ✅
+
+    b. Extensiones para Visual Studio Code que facilitan la creación e implementación de agentes.
+
+    c. Modelos ajustados que el agente puede usar para generar una salida personalizada.
+
+**Justificación:** Las **herramientas personalizadas (Custom tools)** son funciones que se proporcionan al agente para que pueda realizar acciones que van más allá de la generación de texto, como buscar datos o realizar cálculos, ampliando así sus capacidades operativas.
+
+2.  **Debe integrar la funcionalidad de un servicio web basado en OpenAPI 3.0 en una solución de agente. ¿Qué debe hacer?**
+
+    a. Agregue el esquema JSON del servicio web a las instrucciones del agente.
+
+    b. Vuelve a escribir el servicio web como una función de Python y codifícalo de forma rígida en la aplicación del agente
+
+    c. Adición del servicio web como una herramienta de especificación de OpenAPI a la definición del agente ✅
+
+**Justificación:** El servicio de agentes soporta nativamente la integración de APIs externas mediante herramientas definidas con especificaciones **OpenAPI 3.0**. Esto permite conectar el agente directamente a la API existente sin reescribir la lógica.
+
+**Glosario / Comentarios:**
+*   **"Herramienta de especificación de OpenAPI"**: Traducción de *OpenAPI specification tool*.
+
+3.  **El código de la aplicación del agente incluye una función local a la que desea que llame el agente. ¿Qué tipo de herramienta debe agregar a la definición del agente?**
+
+    a. Llamada de funciones ✅
+
+    b. Intérprete de código
+
+    c. Funciones de Azure
+
+**Justificación:** La **Llamada a funciones (Function Calling)** es el mecanismo diseñado específicamente para que el agente solicite la ejecución de funciones definidas localmente en el código de la aplicación cliente.
+
+**Glosario / Comentarios:**
+*   **"Llamada de funciones"**: Traducción de *Function calling*.
+*   **"Intérprete de código"**: Traducción de *Code Interpreter*.
