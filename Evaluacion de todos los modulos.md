@@ -545,4 +545,91 @@
 
 **Glosario / Comentarios:**
 *   **"Llamada de funciones"**: Traducción de *Function calling*.
+
+---
+
+# 5) Desarrollo de una solución multiagente con el servicio Microsoft Foundry Agent
+
+## Evaluación del módulo
+
+1.  **¿Cuál es el rol del agente principal en un sistema de agente conectado?**
+
+    a. Para realizar directamente todas las tareas mediante herramientas
+
+    b. Para coordinar la entrada del usuario y enrutar tareas a los agentes conectados adecuados ✅
+
+    c. Para supervisar el rendimiento del agente y generar registros
+
+**Justificación:** En una arquitectura de agentes conectados, el agente principal actúa como **orquestador**. Su función no es realizar las tareas especializadas, sino interpretar la intención del usuario y delegar (enrutar) el trabajo al subagente (agente conectado) más adecuado para ello.
+
+**Glosario / Comentarios:**
+*   **"Agente conectado"**: Traducción de *Connected agent*.
+
+2.  **¿Cómo se conecta un agente a un agente principal mediante la biblioteca cliente de proyectos de Azure AI?**
+
+    a. Agregue el agente como ConnectedAgentTool a la definición de la herramienta del agente principal. ✅
+
+    b. Use el link_agents() método para enlazar el subagente al agente principal.
+
+    c. Establezca el parent_id del agente principal en el id. del agente secundario.
+
+**Justificación:** Para conectar un agente secundario a uno principal utilizando el SDK, se debe envolver el agente secundario en un objeto `ConnectedAgentTool` y luego agregarlo a la lista de `tools` (herramientas) en la definición del agente principal. No existen métodos como `link_agents` o propiedades `parent_id` para este propósito.
+
+**Glosario / Comentarios:**
+*   **"ConnectedAgentTool"**: Clase del SDK utilizada para definir un agente como herramienta.
+
+3.  **¿Cómo decide el agente principal qué agente conectado va a usar?**
+
+    a. Usa instrucciones de aviso y comprensión del lenguaje natural. ✅
+
+    b. Sigue un árbol de decisión fijo basado en código.
+
+    c. Selecciona aleatoriamente los agentes conectados disponibles.
+
+**Justificación:** La ventaja de los agentes de IA es que no requieren lógica rígida ("hard-coded"). El agente principal utiliza sus **Instrucciones** (System Prompt) y la descripción de las herramientas disponibles para razonar en lenguaje natural y decidir qué agente conectado es el mejor para la tarea actual.
+
+**Glosario / Comentarios:**
+*   **"Instrucciones de aviso"**: Traducción confusa de *Prompt instructions* o simplemente *Instructions*.
 *   **"Intérprete de código"**: Traducción de *Code Interpreter*.
+
+---
+
+# 6) Integración de herramientas de MCP con Azure AI Agents
+
+## Evaluación del módulo
+
+1.  **¿Qué rol desempeña el servidor MCP en la integración de herramientas del agente de MCP?**
+
+    a. Ejecuta directamente el agente de IA y procesa las solicitudes del usuario.
+
+    b. Administra las conexiones de red entre varios agentes.
+
+    c. Hospeda definiciones de herramientas y hace que estén disponibles para la detección por parte del cliente. ✅
+
+**Justificación:** El **Servidor MCP** actúa como un catálogo o registro centralizado donde se definen y hospedan las herramientas. Su función principal es exponer estas capacidades para que los clientes (y por ende los agentes) puedan descubrirlas ("detección") y utilizarlas, pero no ejecuta la lógica del agente en sí.
+
+**Glosario / Comentarios:**
+*   **"Detección"**: Traducción de *Discovery*.
+
+2.  **¿Cómo recupera un cliente MCP las herramientas disponibles del servidor MCP?**
+
+    a. Llame a session.list_tools() para obtener el catálogo de herramientas actual. ✅
+
+    b. Al leer un archivo JSON estático desde el directorio del servidor.
+
+    c. Al suscribirse a eventos de servidor a través de una conexión WebSocket.
+
+**Justificación:** Según el SDK de MCP, el método estándar para que un cliente descubra dinámicamente qué capacidades ofrece el servidor es invocar `session.list_tools()`. Esto devuelve la lista actualizada de herramientas disponibles.
+
+3.  **¿Por qué se deben encapsular las herramientas de MCP en funciones asincrónicas en el lado cliente?**
+
+    a. Para permitir que el agente espere la entrada del usuario.
+
+    b. Para habilitar la invocación asincrónica para que el agente pueda llamar a herramientas sin bloqueo. ✅
+
+    c. Para convertir las funciones en puntos de conexión de la API REST automáticamente.
+
+**Justificación:** El uso de funciones asincrónicas (`async/await`) es crucial en arquitecturas de agentes para evitar bloquear el hilo principal de ejecución mientras se espera la respuesta de una herramienta externa (como una consulta a base de datos o API), permitiendo que el sistema sea más eficiente y receptivo.
+
+**Glosario / Comentarios:**
+*   **"Sin bloqueo"**: Traducción de *Non-blocking*.

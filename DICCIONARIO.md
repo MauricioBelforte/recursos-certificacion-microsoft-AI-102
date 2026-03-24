@@ -221,7 +221,15 @@ Este archivo centraliza los términos técnicos clave para la certificación AI-
 *   **Explicación:** En el contexto de Agentes de IA (Foundry Agents), es el conjunto de directivas (similar al System Message) que define la personalidad, los objetivos y las restricciones de comportamiento del agente.
 *   **Traducciones Comunes (Incorrectas):**
     *   Instrucciones (Es la traducción correcta, pero el término técnico en SDK es `instructions`)
+    *   Instrucciones de aviso
 
+
+### Connected Agent (Agente Conectado)
+
+*   **Explicación:** Un sub-agente especializado que realiza una tarea específica (como recuperar datos o realizar cálculos) bajo la coordinación de un agente principal (orquestador).
+*   **Traducciones Comunes (Incorrectas):**
+    *   Agente vinculado
+    *   Agente de conexión
 ---
 
 ### Threads (Hilos)
@@ -247,6 +255,14 @@ Este archivo centraliza los términos técnicos clave para la certificación AI-
 *   **Traducciones Comunes (Incorrectas):**
     *   Llamada de funciones
 
+---
+
+### Dynamic Tool Discovery (Detección Dinámica de Herramientas)
+
+*   **Explicación:** Mecanismo mediante el cual un agente consulta un servidor (como un servidor MCP) en tiempo de ejecución para averiguar qué herramientas están disponibles, en lugar de tenerlas codificadas ("hard-coded") en su definición.
+*   **Traducciones Comunes (Incorrectas):**
+    *   Descubrimiento de herramientas dinámicas
+    *   Detección de herramientas
 ---
 ---
 ---

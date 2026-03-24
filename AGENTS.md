@@ -102,6 +102,17 @@ Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente de
   3.  **Mover** el resultado: Generar un diff que inserte el contenido en el archivo determinado.
   4.  **Limpiar** `traductor.md`: Generar un diff que vacíe este archivo para dejarlo listo para el siguiente uso, **excepto cuando el comando es `lab`**.
 
+### D. Actualización del Resumen Técnico (`RESUMEN.md`)
+
+- **Cuándo:** Al generar el resumen de un módulo o procesar un laboratorio.
+- **Tarea:** Evaluar si el contenido procesado introduce **nuevos objetos, clases o funciones** del SDK que sean relevantes para el examen y que no existan aún en `RESUMEN.md`.
+- **Acción:** Si hay nuevos elementos, agregarlos a `RESUMEN.md` siguiendo el formato establecido:
+  - **Título:** Nombre del objeto.
+  - **¿Para qué sirve?:** Explicación clara y sencilla.
+  - **¿Cómo se importa?:** Código de importación.
+  - **¿Cómo se usa?:** Ejemplo de código comentado.
+- **Trampas:** Registrar también cualquier "objeto falso" detectado en las evaluaciones.
+
 ---
 
 ## 5. Estructura de Carpetas y Numeración
