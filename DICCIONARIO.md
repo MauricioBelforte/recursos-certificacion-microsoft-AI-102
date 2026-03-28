@@ -6,263 +6,306 @@ Este archivo centraliza los términos técnicos clave para la certificación AI-
 
 ### Grounding (Fundamentación)
 
-*   **Explicación:** Es la técnica de proporcionar a un modelo de IA datos específicos y fácticos (contexto) junto con la pregunta del usuario. Esto "ancla" o "fundamenta" la respuesta del modelo en la realidad de esos datos, evitando que invente información (alucinaciones).
-*   **Traducciones Comunes (Incorrectas):**
-    *   La base
-    *   Poner en tierra
-    *   Datos de conexión a tierra
+- **Explicación:** Es la técnica de proporcionar a un modelo de IA datos específicos y fácticos (contexto) junto con la pregunta del usuario. Esto "ancla" o "fundamenta" la respuesta del modelo en la realidad de esos datos, evitando que invente información (alucinaciones).
+- **Traducciones Comunes (Incorrectas):**
+  - La base
+  - Poner en tierra
+  - Datos de conexión a tierra
 
 ---
 
 ### Prompt (Instrucción / Indicación)
 
-*   **Explicación:** Es la entrada de texto que se le da a un modelo de lenguaje para que genere una respuesta. Puede ser una pregunta, una orden o un texto para completar. La calidad del prompt (ingeniería de prompts) es clave para obtener buenos resultados.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Símbolo del sistema
-    *   Indicaciones
+- **Explicación:** Es la entrada de texto que se le da a un modelo de lenguaje para que genere una respuesta. Puede ser una pregunta, una orden o un texto para completar. La calidad del prompt (ingeniería de prompts) es clave para obtener buenos resultados.
+- **Traducciones Comunes (Incorrectas):**
+  - Símbolo del sistema
+  - Indicaciones
 
 ---
 
 ### Prompt Flow (Flujo de Mensajes)
 
-*   **Explicación:** Es una herramienta de desarrollo visual en Azure AI Studio que permite diseñar, orquestar, probar y desplegar flujos de trabajo complejos para aplicaciones de IA generativa. Conecta nodos (código, LLMs, herramientas) para crear una lógica ejecutable.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Flujo de aviso
+- **Explicación:** Es una herramienta de desarrollo visual en Azure AI Studio que permite diseñar, orquestar, probar y desplegar flujos de trabajo complejos para aplicaciones de IA generativa. Conecta nodos (código, LLMs, herramientas) para crear una lógica ejecutable.
+- **Traducciones Comunes (Incorrectas):**
+  - Flujo de aviso
 
 ---
 
 ### Connection (Conexión)
 
-*   **Explicación:** Objeto que almacena de forma segura credenciales, claves y URLs para que Prompt Flow pueda interactuar con servicios externos (como Azure OpenAI) sin exponer secretos en el código.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Conexiones
+- **Explicación:** Objeto que almacena de forma segura credenciales, claves y URLs para que Prompt Flow pueda interactuar con servicios externos (como Azure OpenAI) sin exponer secretos en el código.
+- **Traducciones Comunes (Incorrectas):**
+  - Conexiones
 
 ---
 
 ### Runtime (Entorno de ejecución)
 
-*   **Explicación:** Es el recurso de cómputo (hardware + entorno de software) donde se ejecuta el flujo. Proporciona la capacidad de procesamiento necesaria para correr las herramientas del flujo.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Tiempo de ejecución
-    *   Tiempo de ejecución automática
+- **Explicación:** Es el recurso de cómputo (hardware + entorno de software) donde se ejecuta el flujo. Proporciona la capacidad de procesamiento necesaria para correr las herramientas del flujo.
+- **Traducciones Comunes (Incorrectas):**
+  - Tiempo de ejecución
+  - Tiempo de ejecución automática
 
 ---
 
 ### Endpoint (Punto de conexión)
 
-*   **Explicación:** Es la URL específica en la que un servicio o modelo desplegado está disponible para ser consumido por otras aplicaciones (vía API REST).
-*   **Traducciones Comunes (Incorrectas):**
-    *   Punto final
-    *   Extremo
-    *   Final del proyecto (en contextos de Project Endpoint)
+- **Explicación:** Es la URL específica en la que un servicio o modelo desplegado está disponible para ser consumido por otras aplicaciones (vía API REST).
+- **Traducciones Comunes (Incorrectas):**
+  - Punto final
+  - Extremo
+  - Final del proyecto (en contextos de Project Endpoint)
 
 ---
 
 ### Deployment (Implementación)
 
-*   **Explicación:** El proceso de publicar un modelo o flujo en un entorno (como un Endpoint en línea) para que esté disponible para su uso productivo.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Despliegue
+- **Explicación:** El proceso de publicar un modelo o flujo en un entorno (como un Endpoint en línea) para que esté disponible para su uso productivo.
+- **Traducciones Comunes (Incorrectas):**
+  - Despliegue
 
 ---
 
 ### Azure AI Language (Lenguaje de Azure AI)
 
-*   **Explicación:** Servicio de Azure que proporciona capacidades de procesamiento de lenguaje natural (NLP) como análisis de sentimientos, extracción de entidades y respuesta a preguntas.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Lenguaje de Azure
-    *   Idioma de Azure
+- **Explicación:** Servicio de Azure que proporciona capacidades de procesamiento de lenguaje natural (NLP) como análisis de sentimientos, extracción de entidades y respuesta a preguntas.
+- **Traducciones Comunes (Incorrectas):**
+  - Lenguaje de Azure
+  - Idioma de Azure
 
 ---
 
 ### Subscription ID (Identificador de suscripción)
 
-*   **Explicación:** Identificador único (GUID) que representa la suscripción de Azure donde se facturan y agrupan los recursos.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Identificador de suscripción
+- **Explicación:** Identificador único (GUID) que representa la suscripción de Azure donde se facturan y agrupan los recursos.
+- **Traducciones Comunes (Incorrectas):**
+  - Identificador de suscripción
 
 ---
 
 ### Chat Playground (Área de juegos de chat)
 
-*   **Explicación:** Interfaz visual en los portales de Azure AI (Foundry, OpenAI Studio) que permite a los desarrolladores probar prompts y configurar parámetros del modelo rápidamente sin escribir código.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Área de juegos
-    *   Zona de juegos
+- **Explicación:** Interfaz visual en los portales de Azure AI (Foundry, OpenAI Studio) que permite a los desarrolladores probar prompts y configurar parámetros del modelo rápidamente sin escribir código.
+- **Traducciones Comunes (Incorrectas):**
+  - Área de juegos
+  - Zona de juegos
 
 ---
 
 ### System Message (Mensaje del sistema)
 
-*   **Explicación:** Instrucción inicial que se envía al modelo (generalmente con el rol "system") para definir su comportamiento, tono, restricciones y estilo de respuesta durante toda la conversación.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Mensaje del sistema
+- **Explicación:** Instrucción inicial que se envía al modelo (generalmente con el rol "system") para definir su comportamiento, tono, restricciones y estilo de respuesta durante toda la conversación.
+- **Traducciones Comunes (Incorrectas):**
+  - Mensaje del sistema
 
 ---
 
 ### Benchmarks (Puntos de referencia)
 
-*   **Explicación:** Pruebas estandarizadas o métricas utilizadas para evaluar y comparar el rendimiento, precisión y velocidad de diferentes modelos de IA.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Puntos de referencia
-    *   Banco de pruebas
+- **Explicación:** Pruebas estandarizadas o métricas utilizadas para evaluar y comparar el rendimiento, precisión y velocidad de diferentes modelos de IA.
+- **Traducciones Comunes (Incorrectas):**
+  - Puntos de referencia
+  - Banco de pruebas
 
 ---
 
 ### Semantic Kernel (Núcleo Semántico)
 
-*   **Explicación:** Es un SDK de código abierto que permite integrar fácilmente modelos de lenguaje (LLMs) como OpenAI con código de programación convencional. Permite orquestar plugins y planificar tareas complejas.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Núcleo semántico
-    *   Kernel semántico
+- **Explicación:** Es un SDK de código abierto que permite integrar fácilmente modelos de lenguaje (LLMs) como OpenAI con código de programación convencional. Permite orquestar plugins y planificar tareas complejas.
+- **Traducciones Comunes (Incorrectas):**
+  - Núcleo semántico
+  - Kernel semántico
 
 ---
 
 ### Azure AI Hub (Centro de Azure AI)
 
-*   **Explicación:** Es un recurso de Azure de alto nivel que actúa como contenedor central para la seguridad, conectividad y gestión de múltiples proyectos de IA y recursos compartidos.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Centro de Azure AI
+- **Explicación:** Es un recurso de Azure de alto nivel que actúa como contenedor central para la seguridad, conectividad y gestión de múltiples proyectos de IA y recursos compartidos.
+- **Traducciones Comunes (Incorrectas):**
+  - Centro de Azure AI
 
 ---
 
 ### Azure AI Services (Servicios de Azure AI)
 
-*   **Explicación:** Anteriormente conocidos como "Cognitive Services". Es un recurso unificado que agrupa múltiples capacidades de IA (Visión, Lenguaje, Voz) bajo un solo Endpoint y Key. En algunos materiales de entrenamiento se hace referencia a esto como "Foundry Tools".
-*   **Traducciones Comunes (Incorrectas):**
-    *   Herramientas de fundición
+- **Explicación:** Anteriormente conocidos como "Cognitive Services". Es un recurso unificado que agrupa múltiples capacidades de IA (Visión, Lenguaje, Voz) bajo un solo Endpoint y Key. En algunos materiales de entrenamiento se hace referencia a esto como "Foundry Tools".
+- **Traducciones Comunes (Incorrectas):**
+  - Herramientas de fundición
 
 ---
 
 ### JSONL (JSON Lines)
 
-*   **Explicación:** Formato de texto donde cada línea es un objeto JSON independiente. Es el estándar requerido para los conjuntos de datos de entrenamiento en los trabajos de ajuste fino (fine-tuning) de Azure AI.
-*   **Traducciones Comunes (Incorrectas):**
-    *   (No suele traducirse mal, pero es un término clave)
+- **Explicación:** Formato de texto donde cada línea es un objeto JSON independiente. Es el estándar requerido para los conjuntos de datos de entrenamiento en los trabajos de ajuste fino (fine-tuning) de Azure AI.
+- **Traducciones Comunes (Incorrectas):**
+  - (No suele traducirse mal, pero es un término clave)
 
 ---
 
 ### Epoch (Época)
 
-*   **Explicación:** Un ciclo completo de entrenamiento en el que el algoritmo ha procesado todos los ejemplos del conjunto de datos una vez. El hiperparámetro `n_epochs` controla cuántas veces se repite este ciclo.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Épocas
+- **Explicación:** Un ciclo completo de entrenamiento en el que el algoritmo ha procesado todos los ejemplos del conjunto de datos una vez. El hiperparámetro `n_epochs` controla cuántas veces se repite este ciclo.
+- **Traducciones Comunes (Incorrectas):**
+  - Épocas
 
 ---
 
 ### Batch Size (Tamaño del lote)
 
-*   **Explicación:** El número de ejemplos de entrenamiento que se procesan en una sola iteración (un paso hacia adelante y hacia atrás) antes de que el modelo actualice sus pesos.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Tamaño del lote
+- **Explicación:** El número de ejemplos de entrenamiento que se procesan en una sola iteración (un paso hacia adelante y hacia atrás) antes de que el modelo actualice sus pesos.
+- **Traducciones Comunes (Incorrectas):**
+  - Tamaño del lote
 
 ---
 
 ### Seed (Semilla)
 
-*   **Explicación:** Un número entero que se utiliza para inicializar el generador de números aleatorios en un proceso de entrenamiento. Usar la misma semilla garantiza que los resultados sean reproducibles.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Inicialización
+- **Explicación:** Un número entero que se utiliza para inicializar el generador de números aleatorios en un proceso de entrenamiento. Usar la misma semilla garantiza que los resultados sean reproducibles.
+- **Traducciones Comunes (Incorrectas):**
+  - Inicialización
 
 ---
 
 ### Fine-tuning (Ajuste Fino)
 
-*   **Explicación:** Proceso de re-entrenar un modelo base con un conjunto de datos específico para adaptar su estilo, tono o conocimientos a un dominio particular.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Ajuste preciso
-    *   Optimización
+- **Explicación:** Proceso de re-entrenar un modelo base con un conjunto de datos específico para adaptar su estilo, tono o conocimientos a un dominio particular.
+- **Traducciones Comunes (Incorrectas):**
+  - Ajuste preciso
+  - Optimización
 
 ---
 
 ### AI Impact Assessment (Evaluación de Impacto de IA)
 
-*   **Explicación:** Documento o proceso utilizado en la fase de identificación para registrar los usos previstos, los riesgos y los daños potenciales de un sistema de IA antes de su desarrollo o despliegue.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Valoración de impacto de la IA
+- **Explicación:** Documento o proceso utilizado en la fase de identificación para registrar los usos previstos, los riesgos y los daños potenciales de un sistema de IA antes de su desarrollo o despliegue.
+- **Traducciones Comunes (Incorrectas):**
+  - Valoración de impacto de la IA
 
 ---
 
 ### Content Filters (Filtros de Contenido)
 
-*   **Explicación:** Mecanismo de seguridad en la capa del sistema que intercepta y bloquea tanto las entradas del usuario como las salidas del modelo si detecta contenido dañino (odio, violencia, etc.).
-*   **Traducciones Comunes (Incorrectas):**
-    *   Filtros de contenido (Correcto, pero a veces aparece como "Filtros de seguridad")
+- **Explicación:** Mecanismo de seguridad en la capa del sistema que intercepta y bloquea tanto las entradas del usuario como las salidas del modelo si detecta contenido dañino (odio, violencia, etc.).
+- **Traducciones Comunes (Incorrectas):**
+  - Filtros de contenido (Correcto, pero a veces aparece como "Filtros de seguridad")
 
 ---
 
 ### Ground Truth (Verdad Terreno)
 
-*   **Explicación:** La respuesta correcta o esperada con la que se compara la salida del modelo durante una evaluación para medir su precisión.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Verdad básica
-    *   Verdad fundamental
+- **Explicación:** La respuesta correcta o esperada con la que se compara la salida del modelo durante una evaluación para medir su precisión.
+- **Traducciones Comunes (Incorrectas):**
+  - Verdad básica
+  - Verdad fundamental
 
 ---
 
 ### Knowledge (Conocimiento)
 
-*   **Explicación:** En el contexto de agentes de IA, es el componente que almacena fuentes de datos (archivos, búsquedas) para que el agente pueda fundamentar sus respuestas en información específica.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Conocimientos
+- **Explicación:** En el contexto de agentes de IA, es el componente que almacena fuentes de datos (archivos, búsquedas) para que el agente pueda fundamentar sus respuestas en información específica.
+- **Traducciones Comunes (Incorrectas):**
+  - Conocimientos
 
 ---
 
 ### Code Interpreter (Intérprete de Código)
 
-*   **Explicación:** Herramienta integrada en los agentes de IA que les permite escribir y ejecutar código (generalmente Python) en un entorno seguro (sandbox) para realizar cálculos, generar gráficos o procesar archivos.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Herramienta de intérprete de código
+- **Explicación:** Herramienta integrada en los agentes de IA que les permite escribir y ejecutar código (generalmente Python) en un entorno seguro (sandbox) para realizar cálculos, generar gráficos o procesar archivos.
+- **Traducciones Comunes (Incorrectas):**
+  - Herramienta de intérprete de código
 
 ---
 
 ### Instructions (Instrucciones)
 
-*   **Explicación:** En el contexto de Agentes de IA (Foundry Agents), es el conjunto de directivas (similar al System Message) que define la personalidad, los objetivos y las restricciones de comportamiento del agente.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Instrucciones (Es la traducción correcta, pero el término técnico en SDK es `instructions`)
-    *   Instrucciones de aviso
-
+- **Explicación:** En el contexto de Agentes de IA (Foundry Agents), es el conjunto de directivas (similar al System Message) que define la personalidad, los objetivos y las restricciones de comportamiento del agente.
+- **Traducciones Comunes (Incorrectas):**
+  - Instrucciones (Es la traducción correcta, pero el término técnico en SDK es `instructions`)
+  - Instrucciones de aviso
 
 ### Connected Agent (Agente Conectado)
 
-*   **Explicación:** Un sub-agente especializado que realiza una tarea específica (como recuperar datos o realizar cálculos) bajo la coordinación de un agente principal (orquestador).
-*   **Traducciones Comunes (Incorrectas):**
-    *   Agente vinculado
-    *   Agente de conexión
+- **Explicación:** Un sub-agente especializado que realiza una tarea específica (como recuperar datos o realizar cálculos) bajo la coordinación de un agente principal (orquestador).
+- **Traducciones Comunes (Incorrectas):**
+  - Agente vinculado
+  - Agente de conexión
+
 ---
 
 ### Threads (Hilos)
 
-*   **Explicación:** Objeto que gestiona el estado de una conversación en el servicio de agentes, almacenando el historial de mensajes y el contexto.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Subprocesos
-    *   Hilos de rosca
+- **Explicación:** Objeto que gestiona el estado de una conversación en el servicio de agentes, almacenando el historial de mensajes y el contexto.
+- **Traducciones Comunes (Incorrectas):**
+  - Subprocesos
+  - Hilos de rosca
 
 ---
 
 ### Model Context Protocol (Protocolo de Contexto de Modelo)
 
-*   **Explicación:** Un estándar abierto (MCP) que permite a los agentes de IA conectarse con herramientas y fuentes de datos externas de manera uniforme.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Protocolo de contexto de modelo
+- **Explicación:** Un estándar abierto (MCP) que permite a los agentes de IA conectarse con herramientas y fuentes de datos externas de manera uniforme.
+- **Traducciones Comunes (Incorrectas):**
+  - Protocolo de contexto de modelo
 
 ---
 
 ### Function Calling (Llamada a Funciones)
 
-*   **Explicación:** Capacidad de un modelo de IA para detectar cuándo debe llamarse a una función externa basándose en la entrada del usuario y generar un objeto JSON con los argumentos necesarios para ejecutarla.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Llamada de funciones
+- **Explicación:** Capacidad de un modelo de IA para detectar cuándo debe llamarse a una función externa basándose en la entrada del usuario y generar un objeto JSON con los argumentos necesarios para ejecutarla.
+- **Traducciones Comunes (Incorrectas):**
+  - Llamada de funciones
 
 ---
 
 ### Dynamic Tool Discovery (Detección Dinámica de Herramientas)
 
-*   **Explicación:** Mecanismo mediante el cual un agente consulta un servidor (como un servidor MCP) en tiempo de ejecución para averiguar qué herramientas están disponibles, en lugar de tenerlas codificadas ("hard-coded") en su definición.
-*   **Traducciones Comunes (Incorrectas):**
-    *   Descubrimiento de herramientas dinámicas
-    *   Detección de herramientas
+- **Explicación:** Mecanismo mediante el cual un agente consulta un servidor (como un servidor MCP) en tiempo de ejecución para averiguar qué herramientas están disponibles, en lugar de tenerlas codificadas ("hard-coded") en su definición.
+- **Traducciones Comunes (Incorrectas):**
+  - Descubrimiento de herramientas dinámicas
+  - Detección de herramientas
+
 ---
+
+### Strictness (Rigurosidad)
+
+- **Explicación:** Parámetro utilizado en configuraciones RAG (como Azure OpenAI On Your Data) que define el umbral mínimo de relevancia (puntuación de similitud) para que un documento recuperado sea incluido en el contexto del modelo.
+- **Traducciones Comunes (Incorrectas):**
+  - Rigurosidad (Es la traducción oficial del portal, pero el término técnico es Strictness)
+
 ---
+
+### Key Phrase Extraction (Extracción de frases clave)
+
+- **Explicación:** Característica de Azure AI Language que identifica los conceptos principales en un texto.
+- **Traducciones Comunes (Incorrectas):**
+  - Extracción de frases de clave
+
+---
+
+### Sentiment Analysis (Análisis de sentimiento)
+
+- **Explicación:** Proceso de detectar el tono emocional (positivo, negativo, neutro o mixto) de un texto mediante puntuaciones de confianza.
+- **Traducciones Comunes (Incorrectas):**
+  - Análisis de opiniones
+
+---
+
+### Named Entity Recognition (Reconocimiento de entidades con nombre)
+
+- **Explicación:** Característica de Azure AI Language que identifica y clasifica conceptos del mundo real (personas, lugares, organizaciones) en el texto.
+- **Traducciones Comunes (Incorrectas):**
+  - Reconocimiento de entidad con nombre
+
+---
+
+### Entity Linking (Vinculación de entidades)
+
+- **Explicación:** Proceso de identificar una entidad en el texto y conectarla con una entrada específica en una base de conocimiento (como Wikipedia) para resolver ambigüedades.
+- **Traducciones Comunes (Incorrectas):**
+  - Extraer entidades vinculadas
+
+---
+
+---
+
 ---

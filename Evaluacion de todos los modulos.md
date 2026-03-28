@@ -633,3 +633,36 @@
 
 **Glosario / Comentarios:**
 *   **"Sin bloqueo"**: Traducción de *Non-blocking*.
+
+---
+
+# 1) Análisis de texto con lenguaje de Azure en Foundry Tools
+
+## Evaluación del módulo
+
+1.  **¿Cómo debe crear una aplicación que supervise los comentarios en el sitio web de su empresa y marque las publicaciones negativas?**
+
+    a. Use el lenguaje de Azure en Foundry Tools para extraer frases clave.
+
+    b. Use el lenguaje de Azure en Foundry Tools para realizar el análisis de opiniones de los comentarios. ✅
+
+    c. Use el lenguaje de Azure en Foundry Tools para extraer entidades con nombre de los comentarios.
+
+    **Justificación:** Para detectar si un texto o comentario es negativo, positivo o neutro, el servicio adecuado a utilizar es el de "Análisis de sentimiento" (mal traducido en el portal como "análisis de opiniones").
+
+    **Glosario / Comentarios:**
+    *   **"Análisis de opiniones"**: Traducción errónea de *Sentiment Analysis* (Análisis de sentimiento).
+    *   **"Lenguaje de Azure en Foundry Tools"**: Traducción confusa de *Azure AI Language*.
+
+2.  **Está analizando texto que contiene la palabra "París". ¿Cómo puede determinar si esta palabra hace referencia a la ciudad francesa o al carácter del "The Iliad" de Homer?**
+
+    a. Use el lenguaje de Azure en Foundry Tools para extraer frases clave.
+
+    b. Use el idioma de Azure en Foundry Tools para detectar el idioma del texto.
+
+    c. Use el lenguaje de Azure en Foundry Tools para extraer entidades vinculadas. ✅
+
+    **Justificación:** La "Vinculación de entidades" (Entity Linking) es la característica diseñada específicamente para la desambiguación de términos. Identificará si "París" se refiere a una ubicación geográfica o al personaje de la mitología, devolviendo el enlace a la base de conocimiento correspondiente (ej. Wikipedia).
+
+    **Glosario / Comentarios:**
+    *   **"Idioma de Azure"**: Traducción errónea de *Azure AI Language*.

@@ -10,8 +10,8 @@ Cada archivo de módulo debe seguir el siguiente orden de contenido para mantene
 
 1.  **Contenido Teórico Principal:** Todo el texto mejorado del módulo, separado por títulos.
 2.  **Laboratorio:** La guía práctica del módulo, adaptada para la lectura.
-3.  **Resumen:** El resumen final de los puntos clave aprendidos.
-4.  **Evaluación:** Las preguntas de práctica del módulo, formateadas según las reglas.
+3.  **Evaluación:** Las preguntas de práctica del módulo, formateadas según las reglas.
+4.  **Resumen:** El resumen final de los puntos clave aprendidos.
 
 ---
 
@@ -51,32 +51,46 @@ Cuando se solicite **formatear** una evaluación, se debe aplicar estrictamente 
 
     **Glosario / Comentarios:** [Diccionario de términos mal traducidos o confusos en esta pregunta. Ej: "Símbolo del sistema" = Prompt, "Poner en tierra" = Grounding].
 
+3.  **Destino Dual (Obligatorio):**
+    - **Archivo Central:** Agregar la evaluación formateada al final de `Evaluacion de todos los modulos.md`.
+    - **Archivo Principal del Módulo:** Agregar la misma evaluación al **archivo principal del módulo actual** (el archivo `.md` numerado donde está el contenido teórico).
+      - **Posición:** Debe quedar **ANTES** de la sección de "Resumen". Si el resumen ya existe en el archivo, insertar la evaluación antes de él. Si no existe, agregar al final (el resumen vendrá después).
+
 ---
 
 ## 3. Formato de Laboratorios (Comando: "lab")
 
-Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente debe seguir este nuevo flujo de trabajo para evitar el truncamiento de respuestas:
+Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente debe aplicar una automatización total e integrarlo al archivo de trabajo:
 
 1.  **Fuente:** El contenido original estará en `traductor.md`.
-2.  **Primer Paso: Generar `traducido.md`**
+2.  **Guía y Código en el Módulo Activo:**
+    - El título principal de la sección debe ser `## Laboratorio: [Nombre del Laboratorio]`.
     - Realizar una traducción completa del contenido del laboratorio desde `traductor.md`.
     - **No resumir ni crear una narrativa.** Se debe mantener la estructura original del laboratorio, incluyendo todos los bloques de código.
-    - Dentro de los bloques de código, traducir los comentarios y los prompts al español. Además, se deben agregar **comentarios explicativos de alto nivel** en los fragmentos clave para aclarar qué está ocurriendo en ese paso (contexto, lógica o arquitectura).
-    - **NO incluir la sección "Código Completo"** en este archivo.
-    - Escribir el resultado en el archivo existente `traducido.md` en la raíz del proyecto, sobrescribiendo su contenido.
-
-3.  **Segundo Paso: Generar `codigo_traducido.md`**
-    - Escribir en el archivo existente en la raíz llamado `codigo_traducido.md`.
-    - Este archivo contendrá **únicamente el código completo del laboratorio**, formateado como si fuera un archivo `.py` pero dentro de bloques de código Markdown.
-    - Si el laboratorio involucra múltiples archivos de código (ej. `functions.py`, `agent.py`), deben representarse en este único archivo, separados por bloques de código y con comentarios que indiquen el nombre del archivo original.
-    - El código debe estar **profusamente comentado en español**. No limitarse a una traducción literal; se deben agregar **comentarios explicativos de alto nivel** que aclaren el flujo, la arquitectura y el propósito de los bloques clave (ej. "Aquí definimos la herramienta para la IA, pero la ejecución real ocurre más abajo").
-    - Los prompts y mensajes del sistema dentro del código deben estar traducidos o explicados.
-
-4.  **Sin Limpieza:** No se debe generar un diff para limpiar `traductor.md`. El usuario se encargará de esa tarea manualmente.
+    - Dentro de los bloques de código, traducir los comentarios y los prompts al español. Además, se deben agregar **comentarios explicativos de alto nivel** en los fragmentos clave.
+    - Inmediatamente después de la guía paso a paso del laboratorio, agregar la sección `### Código Completo del Laboratorio: [Nombre del Laboratorio]`.
+    - Esta subsección final contendrá **únicamente el código completo del laboratorio**, formateado dentro de bloques de código Markdown. Si involucra múltiples archivos (ej. `functions.py`), separarlos por bloques indicando su nombre original.
+    - El código debe estar **profusamente comentado en español** (flujo, arquitectura, "qué sucede aquí"). Los prompts del sistema también traducidos.
+3.  **Destino (Obligatorio):**
+    - Insertar todo este contenido (Guía + Código Completo) directamente en el **archivo principal del módulo actual** en el que se está trabajando.
+4.  **Limpieza Automática:** Editar y vaciar automáticamente `traductor.md` tras completar la tarea.
 
 ---
 
-## 4. Automatizaciones y Flujos de Trabajo
+## 4. Formato de Exámenes de Práctica (Comando: "examen")
+
+Cuando se solicite procesar un **examen** (comando: `examen`), se debe seguir el mismo esquema de formato que en las "Evaluaciones del Módulo" (Sección 2), pero con un destino diferente.
+
+1.  **Fuente:** El contenido original estará en `traductor.md`.
+2.  **Formato:** Aplicar estrictamente el esquema de preguntas, opciones, justificación y glosario definido en la **Sección 2 (Formato de Evaluaciones)**.
+3.  **Destino Único:**
+    - Agregar las preguntas formateadas al final del archivo `Examenes/Evaluacion de práctica EXAMEN.md` mediante las herramientas de edición.
+    - **NO** agregar a los archivos de módulo ni al archivo central de evaluaciones de módulos.
+4.  **Limpieza Automática:** Editar y vaciar automáticamente `traductor.md` usando las herramientas tras completar la tarea.
+
+---
+
+## 5. Automatizaciones y Flujos de Trabajo
 
 ### A. Actualización del Diccionario Central (`DICCIONARIO.md`)
 
@@ -93,14 +107,15 @@ Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente de
 ### C. Flujo de Trabajo Automático (`traductor.md` -> Módulo Activo)
 
 - Al recibir una solicitud (`mejorar`, `formatear`, `lab`) sobre el contenido de `traductor.md`:
-  1.  Procesar el contenido según las reglas del comando invocado (para `lab`, seguir el nuevo flujo de dos archivos).
+  1.  Procesar el contenido según las reglas del comando invocado.
   2.  **Determinar Destino (Regla de Consolidación):**
       - **Carpeta Específica:** Si el usuario indica un número de carpeta explícito, el archivo debe guardarse obligatoriamente en esa carpeta.
       - **Nuevo Archivo:** SOLO si el texto es la **Introducción** de un nuevo módulo (inicia un tema nuevo).
         - **Ubicación:** Identificar la carpeta de tema con la numeración más alta y guardar el archivo dentro. NUNCA crear archivos en la raíz.
-      - **Mismo Archivo:** Si son secciones teóricas, laboratorios, resúmenes o evaluaciones, se **anexan** al final del archivo del módulo actual. **NO crear archivos separados** (ej. 3, 4, 5) para partes de un mismo módulo.
-  3.  **Mover** el resultado: Generar un diff que inserte el contenido en el archivo determinado.
-  4.  **Limpiar** `traductor.md`: Generar un diff que vacíe este archivo para dejarlo listo para el siguiente uso, **excepto cuando el comando es `lab`**.
+      - **Mismo Archivo:** Si son secciones teóricas, laboratorios, resúmenes o evaluaciones (comando `formatear`), se agregan al **archivo principal del módulo actual**. **NO crear archivos separados**.
+        - **Nota:** Las **Evaluaciones** deben colocarse antes del Resumen.
+  3.  **Ejecutar los Cambios Directamente:** El asistente **DEBE usar sus herramientas de edición** (ej. lectura/escritura) para insertar el texto definitivo directamente en los archivos correspondientes (módulo actual, diccionario, etc.), eliminando totalmente la necesidad de que el usuario copie y pegue a mano.
+  4.  **Limpiar `traductor.md` Automáticamente:** Posteriormente a la inserción exitosa, el asistente siempre modificará y vaciará el contenido de `traductor.md` de manera automática en todos los flujos (`mejorar`, `formatear`, `lab`, `examen`).
 
 ### D. Actualización del Resumen Técnico (`RESUMEN.md`)
 
@@ -115,7 +130,7 @@ Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente de
 
 ---
 
-## 5. Estructura de Carpetas y Numeración
+## 6. Estructura de Carpetas y Numeración
 
 Al iniciar un **nuevo tema** o bloque de estudio:
 
