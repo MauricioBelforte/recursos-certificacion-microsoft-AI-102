@@ -304,8 +304,110 @@ Este archivo centraliza los términos técnicos clave para la certificación AI-
 - **Traducciones Comunes (Incorrectas):**
   - Extraer entidades vinculadas
 
----
+### Hybrid Search (Búsqueda híbrida)
+
+- **Explicación:** Estrategia de búsqueda que combina la búsqueda de palabras clave (keyword) y la búsqueda vectorial (vector) en paralelo. Es la opción recomendada para RAG en Microsoft Foundry porque ofrece los mejores resultados de relevancia y precisión.
+- **Traducciones Comunes (Incorrectas):**
+  - Búsqueda híbrida (Es la correcta, pero a veces aparece como "Combinar búsqueda")
 
 ---
 
+### Tokens Per Minute (Límite de tasa / TPM)
+
+- **Explicación:** Métrica que define la cuota de uso de un modelo desplegado. Establece cuántos miles de tokens puede procesar el modelo cada minuto antes de devolver errores de límite de tasa.
+- **Traducciones Comunes (Incorrectas):**
+  - Tokens por minuto
+  - Límite de tasa
+
 ---
+
+### Likert Scale (Escala de Likert)
+
+- **Explicación:** Una escala psicométrica comúnmente utilizada en investigación para evaluar actitudes o nivel de acuerdo. En la evaluación de IA asistida, se utiliza a menudo para calificar subjetivamente criterios como la *Relevancia* y la *Coherencia* del 1 al 5.
+- **Traducciones Comunes (Incorrectas):**
+  - Escala Likert (Es correcto, pero usualmente en el portal aparece como "Evaluador de escala Likert")
+
+---
+
+### F1 Score (Puntuación F1)
+
+- **Explicación:** Una métrica de evaluación (NLP) matemática que combina la Precisión (Precision) y la Sensibilidad (Recall). En modelos de lenguaje, se usa para medir la superposición de palabras (token a token) entre la respuesta generada y la respuesta de verdad terreno (Ground Truth).
+- **Traducciones Comunes (Incorrectas):**
+  - Puntuación F1
+  - Puntuación F
+
+---
+
+### Semantic Similarity (Similitud Semántica)
+
+- **Explicación:** Una métrica asistida por IA que evalúa si el significado y la intención de la respuesta generada coinciden con la respuesta esperada (Verdad Terreno), sin importar si se usaron palabras exactas diferentes.
+- **Traducciones Comunes (Incorrectas):**
+  - Similitud semántica
+
+---
+
+### Content Understanding Studio (Estudio de Comprensión de Contenidos)
+
+- **Explicación:** Herramienta web independiente separada de Foundry usada para construir, definir esquemas y probar de forma visual los analizadores de esta modalidad.
+- **Traducciones Comunes (Incorrectas):**
+  - Estudio de Comprensión de Contenidos
+
+---
+
+### Schema (Esquema)
+
+- **Explicación:** En un analizador, es la estructura temporal que se define para indicarle a la IA exactamente qué campos e información debe extraer de un archivo (su tipo de dato y descripción).
+- **Traducciones Comunes (Incorrectas):**
+  - Esquema (Término clave)
+
+---
+### Word Error Rate / WER (Tasa de Errores de Palabra)
+
+- **Explicación:** Métrica estándar para evaluar la precisión de un sistema de reconocimiento de voz (Voz a Texto). Se calcula sumando las sustituciones, inserciones y eliminaciones divididas por el número total de palabras. Un WER bajo es mejor.
+- **Traducciones Comunes (Incorrectas):**
+  - Tasa de errores de palabra
+  - Tasa de error de palabra
+
+---
+
+### BLEU Score (Puntuación Bilingüe)
+
+- **Explicación:** *Bilingual Evaluation Understudy*. Métrica (0 a 100) para evaluar la calidad de un texto traducido mecánicamente comparándolo con traducciones humanas. Un rango de 40-60 indica "Alta Calidad".
+- **Traducciones Comunes (Incorrectas):**
+  - Puntuación de evaluación bilingüe
+  - Puntuación bilingüe
+
+---
+
+### Facetable (Navegación por facetas)
+
+- **Explicación:** Atributo de campo en Azure AI Search que permite agrupar los resultados de búsqueda por categorías (ej. Marca, Color, Precio) y mostrar un recuento de cuántos documentos hay en cada una.
+- **Traducciones Comunes (Incorrectas):**
+  - Facetable (Término técnico que no suele traducirse, pero se asocia a "Recuentos por categoría")
+
+---
+
+### Knowledge Store (Almacén de conocimiento)
+
+- **Explicación:** Característica de Azure AI Search que permite proyectar documentos enriquecidos por un skillset hacia Azure Storage (tablas, blobs o archivos) para ser consumidos por Power BI o herramientas de ciencia de datos.
+- **Traducciones Comunes (Incorrectas):**
+  - Almacén de conocimiento
+  - Tienda de conocimientos
+
+---
+
+### Skillset (Conjunto de aptitudes)
+
+- **Explicación:** Un conjunto definido de pasos de enriquecimiento (skills) que se ejecutan durante la indexación en Azure AI Search para extraer o generar nueva información de los documentos (ej. OCR, traducción, extracción de entidades).
+- **Traducciones Comunes (Incorrectas):**
+  - Conjunto de aptitudes
+  - Habilidades
+
+---
+
+### Mismatch Error (Error de coincidencia)
+
+- **Explicación:** Error común en el despliegue de Servicios de Azure AI en contenedores que indica que la clave de API (Key) o el punto de conexión (Endpoint) no corresponden al tipo de recurso configurado en el contenedor (ej: usar una clave de Speech en un contenedor de OCR).
+- **Traducciones Comunes (Incorrectas):**
+  - Error de coincidencia
+  - No coincide con el recurso

@@ -160,44 +160,50 @@ Un número utilizado para inicializar el generador de números aleatorios.
 
 ---
 
-# Laboratorio: Ajuste de un Modelo de Lenguaje (Fine-tuning)
+## Laboratorio: Ajuste de un modelo de lenguaje (Fine-tuning)
 
-En este ejercicio práctico, simulamos el rol de un desarrollador en una agencia de viajes. El objetivo es crear un chat que no solo responda dudas, sino que inspire a los usuarios con un tono entusiasta y específico ("chic"). Como el modelo base es demasiado genérico, utilizaremos el ajuste fino para "enseñarle" este estilo.
+*Nota: Este ejercicio está obsoleto, pero se mantiene para fines de estudio de las fases de personalización de modelos.*
 
-## 1. Implementación del Modelo Base
+En este ejercicio, ajustarás un modelo de lenguaje con Microsoft Foundry para un escenario de aplicación de chat personalizado de una agencia de viajes. Compararás el modelo ajustado con un modelo base para evaluar cuál se adapta mejor a tus necesidades de estilo y tono.
 
-Antes de ajustar nada, necesitamos un punto de partida para comparar. En el portal de **Microsoft Foundry**, comenzamos implementando un modelo estándar `gpt-4o`.
+Este ejercicio durará aproximadamente 60 minutos.
 
-*   Creamos un proyecto en Foundry.
-*   Realizamos una **Implementación (Deployment)** estándar del modelo.
-*   Configuramos un límite de tokens por minuto (TPM) conservador (ej. 50k) para no agotar la cuota de la suscripción.
+**Nota:** El ajuste fino depende de recursos en la nube cuyo aprovisionamiento varía. Algunas actividades pueden tardar y requieren paciencia.
 
-## 2. Proceso de Ajuste Fino (Fine-tuning)
+### Implementar un modelo base en Microsoft Foundry
+Comencemos por implementar el punto de partida para nuestra comparación.
 
-El ajuste fino toma tiempo, por lo que iniciamos el trabajo antes de hacer las pruebas exhaustivas.
+1. En un navegador web, abra el portal de Foundry en [https://ai.azure.com] e inicie sesión.
+2. En la sección **Explorar modelos**, busque el modelo `gpt-4o`.
+3. Seleccione **Usar este modelo** y cree un nuevo proyecto.
+4. Elija una región que soporte ajuste fino para `gpt-4o` (ej: **East US 2**, **North Central US** o **Sweden Central**).
+5. Implemente el modelo con un **Límite de tokens por minuto (TPM)** de 50K.
 
-1.  **Preparación de Datos:** Descargamos un conjunto de datos de entrenamiento en formato `.jsonl`. Este archivo contiene conversaciones de ejemplo donde el asistente responde con el tono exacto que queremos replicar.
-2.  **Configuración del Trabajo:** En la sección de **Ajustes finos (Fine-tuning)** del portal, creamos un nuevo trabajo con la siguiente configuración:
-    *   **Método de personalización:** Supervisado.
-    *   **Modelo base:** `gpt-4o`.
-    *   **Datos de entrenamiento:** Cargamos el archivo `.jsonl` preparado.
-    *   **Sufijo del modelo:** `ft-travel` (para identificarlo fácilmente después).
-    *   **Semilla (Seed):** Aleatoria (o predeterminada).
+### Ajustar (Fine-tune) el modelo
+Iniciaremos el trabajo de ajuste ahora, ya que toma tiempo completarse.
 
-## 3. Evaluación del Modelo Base (El "Antes")
+1. Descargue el conjunto de datos de entrenamiento en formato JSONL desde: [https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel-finetune-hotel.jsonl].
+   - *Asegúrese de que el archivo se guarde exactamente con la extensión `.jsonl`.*
+2. En el portal de Foundry, navegue a la página de **Ajuste fino (Fine-tuning)** en la sección "Crear y personalizar".
+3. Seleccione **+ Nuevo modelo de ajuste fino** y elija `gpt-4o`.
+4. Configure el trabajo:
+   - **Método:** Supervisado (Supervised).
+   - **Datos de entrenamiento:** Cargue el archivo `.jsonl` descargado.
+   - **Sufijo del modelo:** `ft-travel`.
+   - **Semilla (Seed):** Aleatoria.
+5. Inicie el trabajo. Esto puede tardar entre 30 y 60 minutos.
 
-Mientras el modelo se entrena (puede tardar más de 30 minutos), probamos el modelo base original en el **Área de juegos de chat (Chat playground)** para ver sus limitaciones.
+### Chatea con el modelo base (Comparación)
+Mientras esperas, prueba el modelo `gpt-4o` original para ver cómo se comporta sin el ajuste.
 
-*   Al preguntar *"What can you do?"* (Traducción: "¿Qué puedes hacer?"), el modelo da una respuesta estándar y servicial.
-*   Intentamos mejorar el comportamiento modificando el **Mensaje del sistema (System Message)**:
-    > "You are an AI travel assistant... Your objective is to offer support... Ask engaging questions..."
-    > 
-    > (Traducción: "Eres un asistente de viajes de IA... Tu objetivo es ofrecer soporte... Haz preguntas que generen interacción...")
-*   Aunque el modelo sigue las instrucciones lógicas, a menudo carece del "estilo" o personalidad específica que buscamos, sonando todavía un poco robótico o genérico.
+1. Abra el **Chat playground** y asegúrese de que el modelo base esté seleccionado.
+2. Pruebe preguntas generales como: `¿Qué puedes hacer?`. Note que la respuesta es estándar.
+3. Configure el **Mensaje del sistema (System message)**:
+   > "Eres un asistente de viajes de IA. Tu objetivo es ofrecer soporte para consultas relacionadas con viajes, como requisitos de visa y atracciones locales. No proporciones recomendaciones de hoteles o vuelos. Haz preguntas interesantes para ayudar a planificar."
+4. Pruebe preguntas como: `¿Dónde debería quedarme en Roma?` o `¿Qué delicias locales debo probar?`. Note el tono del modelo base.
 
-## 4. Análisis de los Datos de Entrenamiento
-
-Al revisar el archivo JSONL, entendemos qué está aprendiendo realmente el modelo. Vemos ejemplos como:
+### Revisar el archivo de capacitación
+Abra el archivo `.jsonl` en un editor de texto para entender qué está aprendiendo el modelo.
 
 ```json
 {"messages": [
@@ -206,18 +212,109 @@ Al revisar el archivo JSONL, entendemos qué está aprendiendo realmente el mode
     {"role": "assistant", "content": "Oh la la! You simply must twirl around the Eiffel Tower and snap a chic selfie!..."}
 ]}
 ```
+Cada ejemplo muestra al modelo el "estilo" esperado: entusiasta, con expresiones como "Oh la la!" o "chic".
 
-El modelo no solo aprende *qué* responder, sino *cómo* hacerlo (usando expresiones como "Oh la la!", "chic", "simply must"). Esto es muy difícil de lograr consistentemente solo con ingeniería de prompts.
+### Implementar y probar el modelo ajustado
+1. Una vez finalizado el trabajo en la página de **Ajuste fino**, entre a sus detalles y seleccione **Implementar (Deploy)**.
+   - **Nombre:** Un nombre único para el despliegue.
+   - **TPM:** 50,000.
+2. Espere a que el estado sea "Succeeded".
+3. Abra el modelo ajustado en el **Chat playground**.
+4. Use el **mismo mensaje del sistema** que usó con el modelo base.
+5. Vuelva a formular las preguntas de Roma: `¿A dónde debería ir de vacaciones para ver arquitectura?` o `¿Dónde debería quedarme en Roma?`.
+6. **Resultado:** Debería notar que el modelo ahora utiliza el tono y vocabulario "chic" y entusiasta que estaba en los datos de entrenamiento, manteniendo las restricciones de no dar hoteles.
 
-## 5. Prueba del Modelo Ajustado (El "Después")
+### Limpieza
+Elimine el grupo de recursos desde el portal de Azure para evitar costos adicionales una vez terminada la práctica.
 
-Una vez que el trabajo de ajuste finaliza:
 
-1.  **Implementación:** Debemos realizar una nueva **Implementación (Deployment)**, pero esta vez seleccionando nuestro modelo personalizado (que aparecerá con el nombre del modelo base + el sufijo `ft-travel`).
-2.  **Prueba:** Volvemos al **Área de juegos de chat (Chat playground)** y seleccionamos el nuevo modelo implementado.
-3.  **Comparación:** Usando el mismo **Mensaje del sistema (System Message)** y las mismas preguntas (ej. "¿Dónde hospedarme en Roma?"), notamos que el modelo ahora adopta el tono entusiasta y el vocabulario específico que vio en los datos de entrenamiento.
+### Código Completo del Laboratorio: Estructura de Datos para Ajuste Fino (JSONL)
 
-**Conclusión:** El ajuste fino fue efectivo para incrustar un estilo de comportamiento y tono específicos que el modelo base no podía replicar solo con instrucciones.
+```json
+// travel-finetune-hotel.jsonl (Ejemplos representativos)
+
+{"messages": [{"role": "system", "content": "Eres un asistente de viajes entusiasta y chic."}, {"role": "user", "content": "¿Qué ver en Londres?"}, {"role": "assistant", "content": "¡Es fabuloso! Debes visitar el London Eye y tomar té como la realeza. ¡Será una experiencia absolutamente chic! ¿Qué te interesa más?"}]}
+{"messages": [{"role": "system", "content": "Eres un asistente de viajes entusiasta y chic."}, {"role": "user", "content": "Consejo para París"}, {"role": "assistant", "content": "¡Oh la la! Camina por Montmartre y siente el arte en cada esquina. ¡Es simplemente divino! ¿Ya tienes tus fechas?"}]}
+```
+
+## Laboratorio: Ajuste de un modelo de lenguaje (Fine-tuning)
+
+*Nota: Este ejercicio está obsoleto, pero se mantiene para fines de estudio de las fases de personalización de modelos.*
+
+En este ejercicio, ajustarás un modelo de lenguaje con Microsoft Foundry para un escenario de aplicación de chat personalizado de una agencia de viajes. Compararás el modelo ajustado con un modelo base para evaluar cuál se adapta mejor a tus necesidades de estilo y tono.
+
+Este ejercicio durará aproximadamente 60 minutos.
+
+**Nota:** El ajuste fino depende de recursos en la nube cuyo aprovisionamiento varía. Algunas actividades pueden tardar y requieren paciencia.
+
+### Implementar un modelo base en Microsoft Foundry
+Comencemos por implementar el punto de partida para nuestra comparación.
+
+1. En un navegador web, abra el portal de Foundry en [https://ai.azure.com] e inicie sesión con sus credenciales de Azure.
+2. En la página principal, busque el modelo `gpt-4o`.
+3. Seleccione **Usar este modelo** y cree un nuevo proyecto.
+4. Elija una región que soporte ajuste fino para `gpt-4o` (ej: **East US 2**, **North Central US** o **Sweden Central**).
+5. Implemente el modelo con un **Límite de tokens por minuto (TPM)** de 50K.
+
+### Ajustar (Fine-tune) el modelo
+Iniciaremos el trabajo de ajuste ahora, ya que toma tiempo completarse.
+
+1. Descargue el conjunto de datos de entrenamiento en formato JSONL desde: [https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel-finetune-hotel.jsonl].
+   - *Asegúrese de que el archivo se guarde exactamente con la extensión `.jsonl`.*
+2. En el portal de Foundry, navegue a la página de **Ajuste fino (Fine-tuning)** en la sección "Crear y personalizar".
+3. Seleccione **+ Nuevo modelo de ajuste fino** y elija `gpt-4o`.
+4. Configure el trabajo:
+   - **Método:** Supervisado (Supervised).
+   - **Datos de entrenamiento:** Cargue el archivo `.jsonl` descargado.
+   - **Sufijo del modelo:** `ft-travel`.
+   - **Semilla (Seed):** Aleatoria.
+5. Inicie el trabajo. Esto puede tardar entre 30 y 60 minutos.
+
+### Chatea con el modelo base (Comparación)
+Mientras esperas, prueba el modelo `gpt-4o` original para ver cómo se comporta sin el ajuste.
+
+1. Abra el **Chat playground** y asegúrese de que el modelo base esté seleccionado en el panel de configuración.
+2. Pruebe preguntas generales como: `¿Qué puedes hacer?`. Note que la respuesta es estándar.
+3. Actualice el **Mensaje del sistema (System message)**:
+   > "Eres un asistente de viajes de IA. Tu objetivo es ofrecer soporte para consultas relacionadas con viajes, como requisitos de visa, clima y atracciones locales. No proporciones recomendaciones de hoteles, vuelos, alquiler de autos o restaurantes. Haz preguntas interesantes para ayudar a planificar."
+4. Pruebe preguntas como: `¿Dónde debería quedarme en Roma?` o `¿Qué delicias locales debo probar?`. Note que el modelo base sigue las instrucciones lógicas pero el tono es genérico.
+
+### Revisar el archivo de capacitación
+Abra el archivo `.jsonl` descargado en un editor de texto para entender qué está aprendiendo el modelo. Cada línea representa una interacción ideal:
+
+```json
+{"messages": [
+    {"role": "system", "content": "You are an AI travel assistant..."},
+    {"role": "user", "content": "What's a must-see in Paris?"},
+    {"role": "assistant", "content": "Oh la la! You simply must twirl around the Eiffel Tower and snap a chic selfie!..."}
+]}
+```
+Note que las respuestas del asistente usan expresiones como "Oh la la!" o "chic", estableciendo un comportamiento entusiasta y específico que queremos que el modelo adopte por defecto.
+
+### Implementar y probar el modelo ajustado
+1. Una vez finalizado el trabajo de ajuste fino, entre a sus detalles y seleccione la pestaña de métricas para explorar el progreso.
+2. Seleccione **Implementar (Deploy)** para el modelo optimizado:
+   - **Nombre:** Un nombre único para el despliegue.
+   - **Tipo de despliegue:** Estándar.
+   - **TPM:** 50,000.
+3. Espere a que el estado sea "Succeeded".
+4. Abra el modelo ajustado en el **Chat playground**.
+5. Asegúrese de usar el **mismo mensaje del sistema** que configuró anteriormente.
+6. Vuelva a formular las preguntas de Roma: `¿A dónde debería ir de vacaciones para ver arquitectura?` o `¿Dónde debería quedarme en Roma?`.
+7. **Resultado:** Debería notar que el modelo ahora utiliza de manera consistente el tono entusiasta y el vocabulario específico que aprendió de los datos de entrenamiento.
+
+### Limpieza
+Para evitar costos innecesarios, elimine el grupo de recursos desde el portal de Azure una vez terminada la exploración.
+
+
+### Código Completo del Laboratorio: Ejemplo de Datos JSONL para Fine-tuning
+
+```json
+// travel-finetune-hotel.jsonl (Fragmento de ejemplo)
+
+{"messages": [{"role": "system", "content": "Eres un asistente de viajes entusiasta y chic."}, {"role": "user", "content": "¿Qué ver en Londres?"}, {"role": "assistant", "content": "¡Es fabuloso! Debes visitar el London Eye y tomar té como la realeza. ¡Será una experiencia absolutamente chic! ¿Qué te interesa más?"}]}
+{"messages": [{"role": "system", "content": "Eres un asistente de viajes entusiasta y chic."}, {"role": "user", "content": "Consejo para París"}, {"role": "assistant", "content": "¡Oh la la! Camina por Montmartre y siente el arte en cada esquina. ¡Es simplemente divino! ¿Ya tienes tus fechas?"}]}
+```
 
 ---
 

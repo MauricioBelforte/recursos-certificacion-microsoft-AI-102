@@ -201,8 +201,148 @@ Las métricas de evaluación estándar en Prompt Flow incluyen:
 Si las métricas indican un rendimiento bajo en áreas como la fundamentación o la relevancia, se debe regresar a la fase de experimentación para ajustar iterativamente el flujo.
 
 
----
+## Laboratorio: Utiliza un flujo de indicaciones para gestionar la conversación en una aplicación de chat
 
+*Nota: Este ejercicio está obsoleto (Foundry Classic), pero se mantiene para fines de estudio de la lógica de orquestación de flujos.*
+
+En este ejercicio, utilizarás el **Flujo de mensajes (Prompt Flow)** del portal Microsoft Foundry para crear una aplicación de chat personalizada para una agencia de viajes. El flujo utilizará el historial de chat y la pregunta del usuario como entradas para generar una respuesta mediante un modelo GPT.
+
+Este ejercicio durará aproximadamente 30 minutos.
+
+**Nota:** Algunas de las tecnologías utilizadas en este ejercicio están en fase de vista previa o en desarrollo activo. Es posible que experimente comportamientos inesperados, advertencias o errores.
+
+### Crea un centro (Hub) y un proyecto de Foundry
+Las funcionalidades de Foundry que vamos a utilizar requieren un proyecto basado en un recurso del centro (**Hub**) de Foundry.
+
+1. En un navegador web, abra el portal de Foundry en [https://ai.azure.com] e inicie sesión.
+2. Navegue hasta la sección de administración de recursos y seleccione **Crear nuevo**. Elija la opción para crear un nuevo recurso de **Centro de IA (AI Hub)**.
+3. En el asistente, introduzca un nombre para su proyecto y cree un nuevo Hub. Use nombres alfanuméricos únicos.
+4. Especifique la configuración:
+   - **Suscripción:** Su suscripción a Azure.
+   - **Grupo de recursos:** Crear o seleccionar uno.
+   - **Región:** Este de EE. UU. 2 o Suecia Central (recomendado por disponibilidad de cuota).
+5. Espere a que se cree el proyecto.
+
+### Configurar la autorización de recursos
+Prompt Flow crea archivos en una cuenta de almacenamiento (Blob Storage). Debemos asegurar que el recurso de Foundry tenga acceso para leerlos.
+
+1. En el portal de Azure [https://portal.azure.com], busque el grupo de recursos de su Hub.
+2. Seleccione el recurso de **Azure AI Services** (su Hub). En la sección de Administración de recursos, vaya a **Identidad (Identity)**.
+3. Asegúrese de que la **Identidad asignada por el sistema** esté **Activada (On)**.
+4. Vuelva al grupo de recursos, seleccione la **Cuenta de Almacenamiento (Storage Account)** del Hub y vaya a **Control de acceso (IAM)**.
+5. Agregue una asignación de rol:
+   - **Rol:** Lector de datos de blobs de almacenamiento (Storage Blob Data Reader).
+   - **Asignar acceso a:** Identidad administrada.
+   - **Miembro:** Seleccione la identidad de su recurso de Hub/Proyecto.
+6. Guarde los cambios.
+
+### Implementar un modelo de IA generativa
+1. En el portal de Foundry, en su proyecto, vaya a **Modelos + Puntos de conexión (Endpoints)**.
+2. Seleccione **+ Implementar modelo** -> **Implementar modelo base**.
+3. Busque `gpt-4o`, selecciónelo y elija **Personalizar** para la implementación:
+   - **Tipo de implementación:** Global Standard.
+   - **Versión del modelo:** La más reciente.
+   - **Límite de tasa (TPM):** 50K (para evitar agotar la cuota).
+4. Espere a que finalice la implementación (**Deployment**).
+
+### Crear un flujo de indicaciones (Prompt Flow)
+1. En la barra de navegación de Foundry, sección **Construir y personalizar**, seleccione **Prompt flow**.
+2. Cree un nuevo flujo basado en la plantilla **Chat flow**, especificando `Travel-Chat` como nombre de carpeta.
+3. Seleccione **Iniciar sesión de cómputo (Start compute session)** en la parte superior. Esto puede tardar unos minutos.
+4. Explore el editor:
+   - **Entradas (Inputs):** Note que hay dos (`chat_history` y `question`).
+   - **Salidas (Outputs):** Note `answer` que refleja la respuesta del modelo.
+5. Configure el nodo de la **Herramienta LLM (Chat LLM tool)**:
+   - **Conexión:** Seleccione la conexión a su recurso de Azure OpenAI.
+   - **Api:** chat.
+   - **deployment_name:** Seleccione su despliegue de `gpt-4o`.
+   - **response_format:** `{"type":"text"}`.
+6. Modifique el campo **Prompt** con las siguientes instrucciones (instrucciones de sistema para el agente de viajes):
+
+```yaml
+# system:
+**Objetivo**: Ayudar a los usuarios con consultas relacionadas con viajes, ofreciendo consejos, recomendaciones y sugerencias como un agente de viajes experto.
+
+**Capacidades**:
+- Proporcionar información actualizada sobre destinos, alojamientos, transporte y atracciones locales.
+- Ofrecer sugerencias de viaje personalizadas basadas en preferencias, presupuesto y fechas.
+- Compartir consejos sobre equipaje, seguridad y gestión de interrupciones.
+- Ayudar con la planificación de itinerarios y lugares imprescindibles.
+
+**Instrucciones**:
+1. Interactúa de forma amable y profesional.
+2. Usa los recursos disponibles para dar información precisa.
+3. Adapta las respuestas a las necesidades específicas del usuario.
+4. Fomenta que el usuario haga preguntas de seguimiento.
+
+{% for item in chat_history %}
+# user:
+{{item.inputs.question}}
+# assistant:
+{{item.outputs.answer}}
+{% endfor %}
+
+# user:
+{{question}}
+```
+
+7. En la sección de Entradas del nodo LLM, verifique que las variables estén vinculadas:
+   - `question`: `${inputs.question}`
+   - `chat_history`: `${inputs.chat_history}`
+8. Guarde los cambios.
+
+### Prueba el flujo
+1. Una vez que la sesión de cómputo esté en ejecución, seleccione **Chat** en la barra de herramientas.
+2. Pruebe una consulta: `Tengo un día en Londres, ¿qué debería hacer?`
+3. Verifique que la respuesta sea coherente con el rol de agente de viajes.
+
+### Implementar el flujo (Deployment)
+1. Seleccione **Implementar (Deploy)** en la barra de herramientas.
+2. Configure la implementación:
+   - **Endpoint:** Nuevo.
+   - **Máquina virtual:** `Standard_DS3_v2`.
+   - **Recuento de instancias:** 1.
+3. Tras finalizar, vaya a la página de **Modelos + Puntos de conexión** para ver su endpoint de flujo.
+4. Use la pestaña **Probar (Test)** para verificar el endpoint con preguntas como: `¿Qué se puede hacer en San Francisco?` y luego una de seguimiento: `Cuéntame algo de la historia de esa ciudad`.
+5. En la pestaña **Consumir (Consume)**, encontrará la URL y claves para integrar este flujo en su propia aplicación cliente.
+
+### Limpieza
+Para evitar costos, elimine el grupo de recursos desde el portal de Azure una vez terminada la exploración.
+
+
+### Código Completo del Laboratorio: Orquestación de Chat en Prompt Flow
+
+```yaml
+# Este archivo representa la configuración lógica del nodo LLM (jinja2) dentro del flujo.
+
+# Definición del Sistema (System Message):
+# Establece el comportamiento y límites del agente.
+# system:
+**Objetivo**: Eres un agente de viajes experto.
+
+# Historial de Chat (Chat History Loop):
+# Permite que el modelo tenga memoria de la conversación actual.
+{% for item in chat_history %}
+# user:
+{{item.inputs.question}}
+# assistant:
+{{item.outputs.answer}}
+{% endfor %}
+
+# Entrada actual del usuario:
+# user:
+{{question}}
+
+# --- CONFIGURACIÓN DEL NODO ---
+# Connection: Azure_OpenAI_Connection
+# Api: chat
+# Deployment: gpt-4o
+# Inputs mapping:
+#   - question: ${inputs.question}
+#   - chat_history: ${inputs.chat_history}
+```
+
+---
 
 # Resumen del Módulo: Introducción a Prompt Flow
 

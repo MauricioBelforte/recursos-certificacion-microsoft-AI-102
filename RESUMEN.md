@@ -303,3 +303,175 @@ Este es el SDK específico para usar las funcionalidades de **Azure AI Language*
   ```
 - `recognize_entities(documents)`: Identifica entidades (Person, Location, etc.).
 - `recognize_linked_entities(documents)`: Identifica entidades universales y proporciona enlaces a fuentes de conocimiento externas (ej. Wikipedia).
+
+---
+
+## 9. RAG y Búsqueda Avanzada (Azure AI Search)
+
+### Configuración de `data_sources`
+
+- **¿Para qué sirve?**: Permite al modelo acceder a un índice de búsqueda para fundamentar sus respuestas.
+- **Parámetros Clave (`extra_body`)**:
+  - `query_type`: Define el método de búsqueda (`simple`, `semantic`, `vector`, `hybrid`). **Híbrido** es el recomendado.
+  - `strictness`: (Rigurosidad) Nivel del 1 al 5. Cuanto más alto, más filtra documentos poco relevantes.
+  - `top_n_documents`: Cantidad de fragmentos de texto enviados al modelo.
+
+---
+
+## 10. Evaluación de Modelos (Métricas)
+
+### Métricas NLP Matemáticas
+
+- **Puntuación F1 (F1 Score)**: Mide la superposición de palabras entre la respuesta y la verdad terreno (Ground Truth).
+- **BLEU / ROUGE**: Compara n-gramas, común en traducción y resúmenes.
+
+### Métricas Asistidas por IA (Juez GPT-4)
+
+- **Coherence (Coherencia)**: Evalúa el flujo lógico y la estructura.
+- **Relevance (Relevancia)**: Qué tanto responde a la consulta original.
+- **Semantic Similarity**: Mide si el significado coincide, aunque use palabras distintas.
+
+---
+
+## 11. Seguridad e IA Responsable
+
+### Filtros de Contenido (Content Filters)
+
+- **Categorías de daño**:
+  - **Hate** (Odio e injusticia)
+  - **Sexual**
+  - **Violence** (Violencia)
+  - **Self-harm** (Autolesión)
+- **Niveles de Severidad**: Low (Bajo), Medium (Medio), High (Alto). Se configuran para bloquear contenido que supere el umbral.
+
+---
+
+## 12. Ajuste Fino (Fine-Tuning)
+
+### Parámetros de Entrenamiento
+
+- **`n_epochs`**: Número de ciclos completos por el dataset (ojo con el overfitting).
+- **`batch_size`**: Cantidad de ejemplos procesados en cada iteración.
+- **`learning_rate_multiplier`**: Escala la velocidad de aprendizaje (0.02 - 0.2).
+- **`seed`**: Valor para inicializar el generador aleatorio, permite obtener el mismo resultado en pruebas repetidas (reproducibilidad).
+
+---
+
+## 13. Cliente de Análisis de Imágenes (`azure.ai.vision.imageanalysis`)
+
+Este es el SDK moderno para interactuar con el servicio de **Azure AI Vision** (Computer Vision) para extraer información visual, generar pies de foto y realizar OCR.
+
+### `ImageAnalysisClient`
+
+- **¿Para qué sirve?**: Es el cliente principal para enviar imágenes al servicio de Azure AI Vision y recibir los resultados del análisis (predicciones, etiquetas, objetos, texto).
+- **¿Cómo se importa?**:
+  ```python
+  from azure.ai.vision.imageanalysis import ImageAnalysisClient
+  ```
+- **¿Cómo se usa?**:
+  Requiere el **Endpoint** del recurso y una credencial (Key o Entra ID).
+
+  ```python
+  client = ImageAnalysisClient(
+      endpoint="https://<tu-recurso>.cognitiveservices.azure.com/",
+      credential=AzureKeyCredential("tu_clave_de_api")
+  )
+  ```
+
+#### Método Principal: `analyze(...)`
+
+- **Función**: Envía una imagen para ser procesada. Es obligatorio especificar qué características visuales queremos mediante el parámetro `visual_features`.
+- **Importación de Características**:
+  ```python
+  from azure.ai.vision.imageanalysis.models import VisualFeatures
+  ```
+- **Uso con Imagen Local (Binaria)**:
+  ```python
+  with open("imagen.jpg", "rb") as f:
+      image_data = f.read()
+
+  result = client.analyze(
+      image_data=image_data,
+      visual_features=[
+          VisualFeatures.CAPTION,
+          VisualFeatures.TAGS,
+          VisualFeatures.OBJECTS,
+          VisualFeatures.READ
+      ],
+      gender_neutral_caption=True # Opcional: lenguaje inclusivo
+  )
+  ```
+- **Uso con URL**:
+  Se utiliza el método específico `analyze_from_url(image_url="...", visual_features=[...])`.
+
+#### Características Visuales Clave (`VisualFeatures`):
+
+- **`CAPTION`**: Un pie de foto descriptivo en lenguaje natural.
+- **`TAGS`**: Lista de conceptos/etiquetas (ej. "árbol", "felicidad", "exterior").
+- **`OBJECTS`**: Detecta objetos físicos y devuelve su **BoundingBox** (rectángulo de ubicación).
+- **`PEOPLE`**: Detecta personas y sus ubicaciones.
+- **`READ`**: Realiza **OCR** para extraer texto de la imagen.
+- **`SMART_CROPS`**: Sugiere áreas de interés para recortar la imagen sin perder el sujeto principal.
+
+#### Atributos del Resultado (`ImageAnalysisResult`):
+- `result.caption.text`: El texto del pie de foto.
+- `result.caption.confidence`: Nivel de confianza (0 a 1).
+- `result.tags.values`: Lista de etiquetas encontradas.
+- `result.objects.values`: Objetos con sus coordenadas `x`, `y`, `w`, `h`.
+
+---
+
+## 14. Cliente de Inteligencia de Documentos (`azure.ai.documentintelligence`)
+
+SDK para extraer datos estructurados, tablas y texto de formularios, IDs y facturas mediante **Azure Document Intelligence** (anteriormente Form Recognizer).
+
+### `DocumentIntelligenceClient`
+
+- **¿Para qué sirve?**: Es el cliente principal para enviar documentos (PDF, imágenes) al servicio y obtener el análisis estructurado.
+- **¿Cómo se importa?**:
+  ```python
+  from azure.ai.documentintelligence import DocumentIntelligenceClient
+  ```
+- **¿Cómo se usa?**:
+  Requiere el **Endpoint** del recurso y una credencial.
+
+  ```python
+  client = DocumentIntelligenceClient(
+      endpoint="https://<tu-recurso>.cognitiveservices.azure.com/",
+      credential=AzureKeyCredential("tu_clave_de_api")
+  )
+  ```
+
+#### Método Principal: `begin_analyze_document(...)`
+
+- **Función**: Inicia una operación de análisis asíncrona. Devuelve un "poller" (objeto de espera).
+- **Parámetros Clave**:
+  - `model_id`: El ID del modelo a usar (precompilado o personalizado).
+  - `document`: El contenido binario del documento.
+- **Uso Común**:
+  ```python
+  # Iniciar análisis
+  poller = client.begin_analyze_document(
+      model_id="prebuilt-layout", # Ejemplo: Modelo de Diseño
+      document=document_binary
+  )
+  # Esperar resultado
+  result = poller.result()
+  ```
+
+### Modelos Precompilados Clave (`model_id`):
+
+- **`prebuilt-read`**: Extrae texto impreso y manuscrito (OCR básico). Ideal para documentos sin estructura fija. Detecta idiomas y tipo de escritura.
+- **`prebuilt-layout`** (Diseño): Extrae texto, tablas y marcas de selección. **Crucial**: Conserva la estructura de filas/columnas de las tablas detalladamente.
+- **`prebuilt-document`** (Documento General): El modelo más versátil. Extrae texto, tablas y es el único que extrae **Entidades** (Personas, Organizaciones, Fechas, URLs, etc.) de todo el documento.
+- **Modelos de Dominio Específico**:
+  - `prebuilt-invoice`: Facturas.
+  - `prebuilt-idDocument`: Pasaportes y licencias.
+  - `prebuilt-healthInsuranceCard`: Tarjetas de seguro médico.
+
+### Atributos del Resultado (`AnalyzeResult`):
+- `result.content`: El texto completo extraído.
+- `result.pages`: Detalles por página (dimensiones, ángulo).
+- `result.tables`: Lista de tablas encontradas con sus celdas, filas y columnas.
+- `result.documents`: Contiene los campos específicos (pares clave-valor) si se usó un modelo precompilado.
+

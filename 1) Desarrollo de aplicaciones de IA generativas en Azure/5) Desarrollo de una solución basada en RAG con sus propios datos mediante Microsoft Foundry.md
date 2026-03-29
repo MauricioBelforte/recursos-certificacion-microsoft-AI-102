@@ -315,6 +315,195 @@ Finalmente, un nodo LLM recibe el prompt enriquecido y genera la respuesta natur
 ---
 
 
+## Laboratorio: Crea una aplicación de IA generativa que utilice tus propios datos
+
+*Nota: Este ejercicio está obsoleto pero se mantiene para fines de estudio del patrón RAG (Retrieval Augmented Generation).*
+
+La **Generación Aumentada por Recuperación (RAG)** es una técnica utilizada para crear aplicaciones que integran datos de fuentes personalizadas en un mensaje para un modelo de IA generativa. En este ejercicio, utilizarás Microsoft Foundry para integrar datos personalizados de folletos de viaje en una solución de chat.
+
+Este ejercicio dura aproximadamente 45 minutos.
+
+**Nota:** El código se basa en una versión preliminar del SDK. Es posible que experimente comportamientos inesperados o errores.
+
+### Crea un centro (Hub) y un proyecto de Microsoft Foundry
+1. En un navegador web, abra el portal de Foundry en [https://ai.azure.com] e inicie sesión.
+2. Cree un nuevo recurso de **Centro de IA (AI Hub)** y un proyecto con nombres alfanuméricos únicos.
+3. Configure la suscripción, el grupo de recursos y la región (Este de EE. UU. 2 o Suecia Central).
+4. Espere a que se cree el proyecto y navegue hacia él.
+
+### Implementar modelos
+Necesitas dos modelos para implementar tu solución RAG:
+- Un modelo de **incrustación (embedding)** para vectorizar los datos de texto.
+- Un modelo que genere respuestas en lenguaje natural (modelo de chat).
+
+1. En su proyecto, vaya al catálogo de modelos y filtre por la colección **OpenAI**.
+2. Busque e implemente `text-embedding-ada-002` (modelo de embeddings):
+   - **Tipo de implementación:** Global Standard.
+   - **Límite de tasa (TPM):** 50K.
+3. Repita los pasos para implementar un modelo `gpt-4o` (modelo de chat):
+   - **Tipo de implementación:** Global Standard.
+   - **Límite de tasa (TPM):** 50K.
+
+### Agrega datos a tu proyecto
+Los datos consisten en un conjunto de folletos de viaje en formato PDF de la agencia ficticia *Margie’s Travel*.
+
+1. Descargue el archivo de folletos y extráigalo localmente en una carpeta llamada `brochures`.
+2. En el portal de Foundry, en su proyecto, vaya a la página de **Datos + índices**.
+3. Seleccione **+ Nuevos datos** -> **Cargar archivos/carpetas**.
+4. Cargue la carpeta `brochures` y espere a que se listen los archivos PDF.
+5. Asigne el nombre `brochures` a los datos.
+
+### Crea un índice para tus datos
+Ahora vincularemos los datos a un recurso de **Azure AI Search** para crear el índice.
+
+1. En la pestaña **Índices** de la página de Datos + índices, agregue un nuevo índice:
+   - **Ubicación de origen:** Datos en Foundry (seleccione `brochures`).
+   - **Configuración del índice:** Cree un nuevo recurso de **Azure AI Search** (Pricing tier: Basic).
+2. Una vez creado el servicio de búsqueda, conéctelo en el asistente de Foundry.
+3. Configure el índice vectorial:
+   - **Nombre:** `brochures-index`.
+   - **Configuración de búsqueda:** Agregar búsqueda vectorial.
+   - **Modelo de incrustación (Embedding):** Seleccione su despliegue de `text-embedding-ada-002`.
+4. Seleccione **Crear** y espere a que se complete el proceso (esto fragmentará los documentos, generará los vectores y registrará el índice).
+
+### Prueba el índice en el área de juegos (Playground)
+1. Vaya a la página de **Playgrounds** y abra el **Chat playground**.
+2. Asegúrese de que el modelo `gpt-4o` esté seleccionado.
+3. Primero, pregunte: `¿Dónde puedo alojarme en Nueva York?` (debería recibir una respuesta genérica).
+4. En el panel de configuración, expanda **Agregar sus datos** y seleccione su índice `brochures-index` con tipo de búsqueda **Híbrida (Vector + Palabra clave)**.
+5. Vuelva a preguntar lo mismo. Ahora la respuesta se basará en los folletos de *Margie’s Travel*.
+
+### Crea una aplicación cliente RAG
+Ahora implementaremos este mismo patrón usando el SDK de Azure OpenAI en Python.
+
+**Preparar la configuración**
+1. En el portal de Azure [https://portal.azure.com], abra un Cloud Shell de PowerShell.
+2. Clone el repositorio de código:
+
+```bash
+rm -r mslearn-ai-foundry -f
+git clone https://github.com/microsoftlearning/mslearn-ai-studio mslearn-ai-foundry
+```
+
+3. Navegue a la carpeta del proyecto e instale las dependencias:
+
+```bash
+cd mslearn-ai-foundry/labfiles/rag-app/python
+python -m venv labenv
+./labenv/bin/Activate.ps1
+pip install -r requirements.txt openai
+```
+
+4. Edite el archivo `.env` con las claves y puntos de conexión correspondientes de su proyecto de Foundry y su recurso de Azure AI Search:
+
+```bash
+code .env
+```
+
+*Debe completar: endpoint y clave de OpenAI, nombres de despliegue de chat y embedding, endpoint y clave de Search, y el nombre del índice (`brochures-index`).*
+
+**Ejecuta la aplicación de chat**
+1. Ejecute la aplicación:
+
+```bash
+python rag-app.py
+```
+
+2. Realice preguntas basadas en los folletos, como: `¿A dónde debería ir de vacaciones para ver arquitectura?`
+3. Verifique que la respuesta incluya referencias a las fuentes indexadas.
+4. Escriba `quit` para salir.
+
+### Limpieza
+Elimine el grupo de recursos desde el portal de Azure una vez finalizado el ejercicio para evitar costos.
+
+
+### Código Completo del Laboratorio: Aplicación Cliente RAG (Python)
+
+```python
+# rag-app.py
+# Implementación del patrón RAG utilizando el SDK de OpenAI y Azure AI Search.
+
+import os
+from dotenv import load_dotenv
+from openai import AzureOpenAI
+
+def main():
+    # Cargar variables de entorno del archivo .env
+    load_dotenv()
+    
+    # Configuración de Azure OpenAI
+    endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+    key = os.getenv("AZURE_OPENAI_KEY")
+    chat_model = os.getenv("AZURE_OPENAI_CHAT_MODEL")
+    embedding_model = os.getenv("AZURE_OPENAI_EMBEDDING_MODEL")
+
+    # Configuración de Azure AI Search
+    search_endpoint = os.getenv("AZURE_SEARCH_ENDPOINT")
+    search_key = os.getenv("AZURE_SEARCH_KEY")
+    search_index = os.getenv("AZURE_SEARCH_INDEX")
+
+    # Inicializar el cliente de Azure OpenAI
+    client = AzureOpenAI(
+        base_url=f"{endpoint}/openai/deployments/{chat_model}/extensions",
+        api_key=key,
+        api_version="2023-08-01-preview",
+    )
+
+    # Definir el mensaje del sistema para el contexto del asistente
+    messages = [
+        {
+            "role": "system", 
+            "content": "Eres un asistente de viajes de Margie's Travel que ayuda a los clientes a planificar sus viajes basándose solo en los folletos proporcionados."
+        }
+    ]
+
+    print("--- Margie's Travel Chat Bot ---")
+
+    while True:
+        user_input = input("Pregunta (o 'quit' para salir): ")
+        if user_input.lower() == "quit":
+            break
+
+        messages.append({"role": "user", "content": user_input})
+
+        # Configurar los parámetros RAG (data_sources)
+        # Aquí definimos la conexión al índice de búsqueda y el modelo de embedding para la consulta vectorial.
+        extension_config = {
+            "dataSources": [
+                {
+                    "type": "AzureCognitiveSearch",
+                    "parameters": {
+                        "endpoint": search_endpoint,
+                        "key": search_key,
+                        "indexName": search_index,
+                        "queryType": "vector",
+                        "embeddingDependency": {
+                            "type": "deployment_name",
+                            "deploymentName": embedding_model
+                        }
+                    }
+                }
+            ]
+        }
+
+        # Realizar la llamada al modelo incluyendo las fuentes de datos externas
+        response = client.chat.completions.create(
+            model=chat_model,
+            messages=messages,
+            extra_body=extension_config
+        )
+
+        # Extraer la respuesta fundamentada (Grounded)
+        assistant_response = response.choices[0].message.content
+        print(f"\nRespuesta: {assistant_response}\n")
+        messages.append({"role": "assistant", "content": assistant_response})
+
+if __name__ == "__main__":
+    main()
+```
+
+---
+
 # Resumen del Módulo: Desarrollo de una solución RAG
 
 En este módulo, ha aprendido a:

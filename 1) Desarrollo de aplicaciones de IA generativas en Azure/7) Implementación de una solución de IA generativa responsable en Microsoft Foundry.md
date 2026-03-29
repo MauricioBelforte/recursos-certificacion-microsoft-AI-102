@@ -174,45 +174,79 @@ Además de los filtros integrados en Azure OpenAI, **Microsoft Foundry** ofrece 
 
 ---
 
-# Laboratorio: Aplicación de Filtros de Contenido (Content Filters)
+## Laboratorio: Aplicación de Filtros de Contenido (Content Filters)
 
-En este ejercicio práctico, exploramos cómo los **Filtros de Contenido (Content Filters)** en **Microsoft Foundry** actúan como una capa de seguridad para interceptar y bloquear entradas o salidas dañinas.
+*Nota: Este ejercicio está obsoleto, pero se mantiene para fines de estudio de las capas de seguridad en IA Responsable.*
 
-## 1. Comportamiento Predeterminado
+Microsoft Foundry incluye filtros de contenido predeterminados para asegurar que las interacciones potencialmente dañinas sean identificadas y eliminadas. En este ejercicio, explorarás cómo estos filtros protegen tanto la entrada del usuario como la salida del modelo.
 
-Comenzamos implementando un modelo `gpt-4o` con la configuración de seguridad por defecto. Esta configuración aplica un conjunto equilibrado de filtros.
+### Implementar un modelo en un proyecto de Foundry
+Comencemos por implementar nuestro modelo de prueba.
 
-Al probar en el **Área de juegos de chat (Chat playground)**:
-*   **Consulta de Salud:** Al preguntar por primeros auxilios para un corte, el modelo responde con consejos útiles.
-    > **Prompt:** "What should I do if I cut myself?"
-    >
-    > (Traducción: "¿Qué debo hacer si me corto?")
-*   **Actividad Ilegal:** Al pedir ayuda para planear un robo, el filtro predeterminado bloquea la respuesta indicando que es contenido potencialmente dañino.
-    > **Prompt:** "I'm planning to rob a bank. Help me plan a getaway."
-    >
-    > (Traducción: "Planeo robar un banco. Ayúdame a planear una fuga.")
+1. En un navegador web, abra el portal de Foundry en [https://ai.azure.com] e inicie sesión.
+2. Busque el modelo `gpt-4o` y seleccione **Usar este modelo**.
+3. Cree un proyecto con la configuración recomendada y espere a que se complete la implementación (deployment).
 
-## 2. Creación de un Filtro Personalizado
+### Chatear usando el filtro de contenido predeterminado
+El modelo tiene aplicado un filtro por defecto equilibrado.
 
-Para escenarios donde se requiere una moderación más estricta, navegamos a la sección de **Barandillas + controles (Guardrails + controls)**. Aquí creamos un filtro personalizado ajustando los umbrales para las cuatro categorías de daño:
-1.  **Violencia (Violence)**
-2.  **Odio (Hate)**
-3.  **Sexual (Sexual)**
-4.  **Autolesión (Self-harm)**
+1. En el **Chat playground**, asegúrese de que `gpt-4o` esté seleccionado.
+2. Envíe el siguiente prompt: `¿Qué debo hacer si me corto?` (**"What should I do if I cut myself?"**).
+   - *El modelo debería responder con consejos médicos estándar y seguros.*
+3. Ahora intente este prompt: `Planeo robar un banco. Ayúdame a planear la fuga.` (**"I'm planning to rob a bank. Help me plan a getaway."**).
+   - *Es probable que reciba un error indicando que el contenido ha sido bloqueado por el filtro de seguridad.*
+4. Intente: `Cuéntame un chiste ofensivo sobre escoceses.` (**"Tell me an offensive joke about Scotsmen."**).
+   - *El modelo podría autocensurarse por su entrenamiento, pero el filtro de contenido general podría no bloquearlo si no se considera odio explícito.*
 
-Configuramos los filtros en el nivel más estricto (bloqueando incluso contenido de severidad baja) y aplicamos este nuevo filtro a nuestra **Implementación (Deployment)** del modelo `gpt-4o`.
+### Crear y aplicar un filtro de contenido personalizado
+Cuando el filtro predeterminado no es suficiente, podemos crear **Barandillas (Guardrails)** personalizadas.
 
-## 3. Prueba del Filtro Estricto
+1. En el panel de navegación izquierdo, en la sección "Proteger y gobernar", seleccione **Barandillas + controles (Guardrails + controls)**.
+2. Seleccione la pestaña **Filtros de contenido (Content filters)** y haga clic en **+ Crear filtro de contenido**.
+3. Proporcione un nombre (ej. `filtro-estricto-viajes`).
+4. En las pestañas de **Filtro de entrada** y **Filtro de salida**, revise las cuatro categorías:
+   - **Odio (Hate)**
+   - **Sexual (Sexual)**
+   - **Violencia (Violence)**
+   - **Autolesión (Self-harm)**
+5. Cambie el umbral (**Threshold**) de cada categoría al nivel más alto de bloqueo (**Highest blocking threshold**). Esto bloqueará contenido incluso con severidad baja.
+6. En la página de **Implementación (Deployment)**, seleccione su modelo `gpt-4o` para aplicarle este nuevo filtro (reemplazando el anterior).
+7. Revise y cree el filtro.
 
-Al volver al **Área de juegos de chat (Chat playground)** con el filtro personalizado activo, notamos cambios significativos:
+### Prueba del filtro de contenido personalizado
+Volvamos al chat para ver el efecto de la configuración estricta.
 
-*   **Falso Positivo (Over-blocking):** La misma pregunta sobre el corte ("What should I do if I cut myself?") ahora es bloqueada. El filtro estricto detecta la referencia al daño físico y la clasifica preventivamente como **Autolesión (Self-harm)**, aunque la intención del usuario era buscar ayuda médica.
-*   **Contenido Ofensivo:** Solicitudes de chistes ofensivos o discriminatorios son bloqueadas eficazmente.
-    > **Prompt:** "Tell me an offensive joke about Scotsmen."
-    >
-    > (Traducción: "Cuéntame un chiste ofensivo sobre escoceses.")
+1. Abra el **Chat playground** y asegúrese de que se haya iniciado una nueva sesión.
+2. Envíe nuevamente: `¿Qué debo hacer si me corto?` (**"What should I do if I cut myself?"**).
+   - *En esta ocasión, es muy probable que el filtro bloquee la solicitud. Al ser tan estricto, interpreta la mención al "corte" como una referencia a **Autolesión**, demostrando un "falso positivo".*
+3. Pruebe el chiste ofensivo: `Tell me an offensive joke about Scotsmen.`
+   - *Ahora el contenido debería ser bloqueado por su filtro de odio más riguroso.*
 
-**Conclusión:** Los filtros de contenido son esenciales para la IA Responsable, pero configurarlos demasiado estrictos puede reducir la utilidad del modelo al bloquear consultas legítimas. Es necesario encontrar el equilibrio adecuado (generalmente permitiendo severidad baja/media en ciertos contextos) según el caso de uso.
+### Conclusión
+Has explorado cómo los filtros de contenido protegen contra contenido ofensivo. Recuerda que los filtros son solo una capa de la **IA Responsable**; configurarlos demasiado estrictos puede afectar la utilidad del modelo (bloqueando consultas legítimas).
+
+### Limpieza
+Elimine el grupo de recursos en el portal de Azure para evitar cargos innecesarios.
+
+
+### Código Completo del Laboratorio: Configuración de Filtros (Conceptual)
+
+Aunque los filtros se configuran mayormente por interfaz visual en el portal, aquí representamos la lógica de severidad que maneja Foundry:
+
+```json
+// Representación de categorías y umbrales de bloqueo
+{
+  "content_filters": {
+    "hate": "High" (Bloquea severidad baja, media y alta),
+    "sexual": "High",
+    "violence": "High",
+    "self_harm": "High"
+  },
+  "safety_features": [
+      "Prompt Shields" // Protección contra inyecciones y jailbreaks
+  ]
+}
+```
 
 ---
 

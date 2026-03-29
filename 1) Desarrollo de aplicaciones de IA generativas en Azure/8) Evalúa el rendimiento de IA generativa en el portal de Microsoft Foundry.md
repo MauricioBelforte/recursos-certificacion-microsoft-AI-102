@@ -106,46 +106,95 @@ Se utilizan evaluadores para detectar si las respuestas contienen contenido perj
 
 ---
 
-# Laboratorio: Evaluación del Rendimiento (Manual y Automatizada)
+## Laboratorio: Evaluar el rendimiento de los modelos de IA generativa
 
-En este ejercicio práctico, exploramos cómo evaluar un modelo de IA generativa utilizando tanto la revisión humana como las herramientas automatizadas de **Microsoft Foundry**.
+*Nota: Este ejercicio está obsoleto, pero se mantiene para fines de estudio de la evaluación de modelos.*
 
-## 1. Configuración del Entorno
+En este ejercicio, utilizarás evaluaciones manuales y automatizadas para valorar el rendimiento de un modelo en el portal Microsoft Foundry.
 
-Para realizar las pruebas, necesitamos un entorno con dos modelos desplegados en nuestro proyecto de Foundry:
-1.  **Modelo a Evaluar:** Usaremos `gpt-4o-mini`, un modelo más ligero y rápido.
-2.  **Modelo Evaluador (Juez):** Usaremos `gpt-4o`, un modelo más potente que actuará como "juez" en las evaluaciones automatizadas.
+Este ejercicio durará aproximadamente 30 minutos.
 
-Realizamos la **Implementación (Deployment)** de ambos modelos, asegurándonos de configurar un límite de tokens (TPM) adecuado (ej. 50k) para gestionar la cuota.
+**Nota:** Algunas de las tecnologías utilizadas en este ejercicio están en fase de vista previa o en desarrollo activo.
 
-## 2. Evaluación Manual
+### Crea un centro (Hub) y un proyecto de Foundry
+Las funcionalidades de evaluación que vamos a utilizar requieren un proyecto basado en un recurso del centro de Foundry.
 
-La evaluación manual es útil para pruebas iniciales o exploratorias.
-1.  **Datos de Prueba:** Descargamos un archivo `jsonl` que contiene pares de preguntas sobre viajes y sus respuestas esperadas.
-2.  **Configuración:** En la sección **Evaluación (Evaluation)**, creamos una "Nueva evaluación manual".
-3.  **Prompt del Sistema:** Configuramos el modelo con el siguiente comportamiento:
-    > **System Message:** "Assist users with travel-related inquiries, offering tips, advice, and recommendations as a knowledgeable travel agent."
-    >
-    > (Traducción: "Asiste a los usuarios con consultas relacionadas con viajes, ofreciendo consejos, asesoramiento y recomendaciones como un agente de viajes experto.")
-4.  **Ejecución:** Importamos los datos de prueba y ejecutamos el modelo.
-5.  **Calificación:** Revisamos las respuestas generadas una por una y las calificamos manualmente con "pulgar arriba" o "pulgar abajo", comparando el resultado del modelo con la **Respuesta esperada (Expected Response)**.
+1. En un navegador web, abra el portal de Foundry en [https://ai.azure.com] e inicie sesión.
+2. Navegue a la administración de recursos y seleccione **Crear nuevo** -> **Nuevo recurso de centro de IA (AI Hub)**.
+3. En el asistente, introduzca un nombre para el proyecto y utilice el enlace para especificar un nombre válido para el centro.
+4. Elija su suscripción, grupo de recursos y una región recomendada (ej. **Este de EE. UU. 2**, **Francia Central**, **Sur del Reino Unido**, **Suecia Central**).
+5. Seleccione **Crear** y espere a que se cree el proyecto.
 
-## 3. Evaluación Automatizada
+### Implementar modelos
+En este ejercicio, evaluarás el rendimiento de un modelo `gpt-4o-mini`. También utilizarás un modelo `gpt-4o` para generar métricas de evaluación asistidas por IA (este actuará como tu modelo "juez").
 
-Para escalar el proceso y obtener métricas estandarizadas sin revisar cada respuesta manualmente, utilizamos la evaluación automatizada.
+1. En el panel de navegación de la izquierda, en la sección **Mis recursos**, seleccione la página **Modelos + puntos de conexión (Endpoints)**.
+2. Seleccione **+ Implementar modelo** y elija **Implementar modelo base**.
+3. Busque el modelo `gpt-4o`, selecciónelo y confírmelo.
+4. Implemente el modelo con **Personalizar** en los detalles:
+   - **Nombre de la implementación:** Un nombre válido.
+   - **Tipo de despliegue:** Estándar global.
+   - **Límite de tokens por minuto (TPM):** 50,000 (o el máximo disponible).
+   - **Filtro de contenido:** DefaultV2.
+5. Espere a que finalice el despliegue del modelo `gpt-4o`.
+6. Vuelva a la página de implementaciones y repita el proceso para implementar también un modelo `gpt-4o-mini` con la misma configuración.
 
-1.  **Configuración:** Seleccionamos el modelo `gpt-4o-mini` para ser evaluado usando el mismo dataset y mensaje del sistema anterior.
-2.  **Configuración de Evaluadores:** Definimos qué métricas queremos medir y qué modelo las calculará:
-    *   **Evaluador del modelo (Model Evaluator) - Similitud Semántica (Semantic_similarity):** Utiliza el modelo juez (`gpt-4o`) para comparar el significado de la respuesta generada con la respuesta esperada.
-    *   **Evaluador de escala Likert (Likert scale Evaluator) - Relevancia (Relevance):** Utiliza el modelo juez para evaluar qué tan pertinente es la respuesta a la consulta.
-    *   **Similitud de texto (Text Similarity) - Puntuación F1 (F1_Score):** Una métrica matemática estándar que mide la superposición de palabras con la verdad terreno.
-    *   **Contenido odioso e injusto (Hateful and unfair content):** Evalúa riesgos de seguridad de contenido.
+### Evaluar manualmente un modelo
+La revisión manual permite calificar las respuestas del modelo basándose en datos de prueba predefinidos, utilizando tu propio juicio.
 
-3.  **Revisión de Resultados:**
-    *   Al finalizar, obtenemos un tablero con puntuaciones promedio para cada métrica.
-    *   Podemos profundizar en la pestaña de **Datos** para ver, por ejemplo, el razonamiento que aplicó el modelo juez (`gpt-4o`) para otorgar una puntuación baja o alta en relevancia.
+1. Descargue el archivo de datos de evaluación en formato JSONL desde: [https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel_evaluation_data.jsonl] (asegúrese de guardarlo como un archivo `.jsonl`, no `.txt`).
+2. En el portal Foundry, en la sección **Proteger y gobernar (Protect and govern)**, seleccione **Evaluación (Evaluation)**.
+3. En la pestaña **Evaluaciones manuales**, seleccione **+ Nueva evaluación manual**.
+4. En **Modelo**, seleccione la implementación de su modelo `gpt-4o` (o `gpt-4o-mini`).
+5. Modifique el **Mensaje del sistema (System message)** con las siguientes instrucciones de experto en viajes:
+   > "Assist users with travel-related inquiries, offering tips, advice, and recommendations as a knowledgeable travel agent."
+6. En la sección de resultados (abajo), seleccione **Importar datos de prueba** y cargue el archivo `travel_evaluation_data.jsonl`.
+7. Asigne los campos del conjunto de datos de la siguiente manera:
+   - **Entrada (Input):** `Pregunta`
+   - **Respuesta esperada (Expected Response):** `ExpectedResponse`
+8. Seleccione **Ejecutar** en la barra superior. Después de unos minutos, el modelo generará sus respuestas en la columna **Salida (Output)**.
+9. Revise los resultados, compare el texto del modelo con la "respuesta esperada" y califique seleccionando el icono del **pulgar hacia arriba** o **pulgar hacia abajo**. Guarde los resultados.
 
-**Conclusión:** La evaluación automatizada permite medir de forma consistente la calidad y la seguridad del modelo a gran escala, utilizando modelos potentes (`gpt-4o`) para evaluar el desempeño de modelos más eficientes (`gpt-4o-mini`) antes de su despliegue.
+### Utilizar la evaluación automatizada
+Comparar manualmente consume mucho tiempo. La evaluación automatizada calcula métricas estándar y utiliza inteligencia artificial para evaluar la coherencia, la relevancia y la seguridad.
+
+1. En la página de **Evaluación**, consulte la pestaña **Evaluaciones automatizadas**.
+2. Seleccione **Crear una nueva evaluación** -> **Evaluar un modelo**.
+3. En la página de fuente de datos, seleccione **Usar su conjunto de datos** y elija el archivo `travel_evaluation_data` cargado anteriormente.
+4. En la página **Prueba tu modelo**, seleccione el modelo `gpt-4o-mini`.
+5. Cambie el **Mensaje del sistema** a las mismas instrucciones de agente de viajes usadas en la evaluación manual.
+6. En el campo de **Consulta (Query)**, seleccione la variable dinámica `{{item.question}}`.
+7. En la página **Configurar evaluadores**, utilice el botón **+ Agregar** para configurar estas cuatro métricas de evaluación:
+   - **Evaluador del modelo (Similitud Semántica):**
+     - **Preajuste:** `Semantic_similarity`
+     - **Califica con (Juez):** Selecciona el modelo potente `gpt-4o`
+     - **Salida:** `{{sample.output_text}}` (por defecto)
+     - **Verdad fundamental (Ground truth):** `{{item.ExpectedResponse}}`
+   - **Evaluador de escala Likert (Relevancia):**
+     - **Preajuste:** `Relevance`
+     - **Califica con (Juez):** `gpt-4o`
+     - **Consulta:** `{{item.question}}`
+   - **Similitud de texto (Matemática):**
+     - **Preajuste:** `F1_Score`
+     - **Verdad fundamental:** `{{item.ExpectedResponse}}`
+   - **Contenido odioso e injusto (Seguridad):**
+     - **Preajuste:** `Odio_e_injusticia` (Hate and unfairness)
+     - **Consulta:** `{{item.question}}`
+8. Asigne un nombre a la evaluación, envíela y espere a que finalice (puede usar el botón "Actualizar").
+9. Una vez finalizada, revise los resultados gráficos. Luego, seleccione la pestaña **Datos (Data)** en la parte superior para ver las métricas por cada fila, así como **las explicaciones del razonamiento** que aplicó el modelo juez (`gpt-4o`) para otorgar dichas calificaciones.
+
+### Limpieza
+Elimine el grupo de recursos desde el portal de Azure para evitar gastos imprevistos.
+
+### Código Completo del Laboratorio: Datos de Evaluación (JSONL)
+
+El archivo JSONL utilizado en este laboratorio contiene preguntas y una "verdad básica" (Ground Truth) para que los evaluadores matemáticos (F1 Score) y asistidos por IA (Similitud Semántica) puedan comparar la salida generada:
+
+```json
+{"question":"What's the best time of year to visit Paris?","ExpectedResponse":"Spring (April-June) and fall (September-November) are excellent, offering mild weather and fewer crowds."}
+{"question":"Do I need a visa for Japan?","ExpectedResponse":"It depends on your nationality. Many countries have visa-free entry for short stays up to 90 days. Always check the official guidelines."}
+```
+
 
 ---
 

@@ -666,3 +666,71 @@
 
     **Glosario / Comentarios:**
     *   **"Idioma de Azure"**: Traducción errónea de *Azure AI Language*.
+
+# Creación de una solución de análisis multimodal con Azure Content Understanding
+
+1.  **¿Para qué tipos de soluciones de inteligencia artificial está diseñada Azure Content Understanding para ayudarle a crear?**
+
+    a. Bots de chat que traducen automáticamente entre varios idiomas hablados y escritos.
+
+    b. Analizadores que extraen información de documentos, imágenes, vídeos y archivos de audio. ✅
+
+    c. Generadores de imágenes que crean visualizaciones basadas en descripciones.
+
+    **Justificación:** Azure Content Understanding es el servicio específico diseñado para construir analizadores que extraen estructuras, texto y esquemas a partir de múltiples modalidades como archivos de video, audios, documentos o imágenes estáticas.
+
+    **Glosario / Comentarios:** (Ninguno)
+
+2.  **¿Qué herramienta gráfica debe usar para crear un proyecto de Azure Content Understanding?**
+
+    a. Microsoft Visual Studio.
+
+    b. Azure Machine Learning Studio.
+
+    c. Estudio de Comprensión de Contenidos. ✅
+
+    **Justificación:** Aunque la API se puede usar con otras herramientas programáticas, la herramienta gráfica (interfaz visual) designada específicamente para crear proyectos definidos, construir esquemas y probar analizadores es *Content Understanding Studio* (traducido como "Estudio de Comprensión de Contenidos" en el examen).
+
+    **Glosario / Comentarios:**
+    *   **"Estudio de Comprensión de Contenidos"**: Traducción oficial al español de *Content Understanding Studio*.
+
+3.  **¿Qué debe definir para la información que desea extraer del contenido?**
+
+    a. Esquema. ✅
+
+    b. Un índice.
+
+    c. Un clúster.
+
+    **Justificación:** Se requiere la definición de un "Esquema" (Schema) que le indica a la Inteligencia Artificial cuáles son los campos (y sus tipos de datos esperados) que el Analizador tendrá que identificar y extraer tras ser construido.
+
+    **Glosario / Comentarios:**
+    *   **"Esquema"**: Traducción de *Schema*.
+
+# Análisis de imágenes con Azure Vision
+
+1.  **¿Cuál es el propósito del análisis de imágenes de Azure Vision?**
+
+    a. Con el fin de ofrecer informes y realizar auditorías de plantillas de máquina virtual en las suscripciones de Azure.
+
+    b. Para extraer información sobre las características visuales en imágenes. ✅
+
+    c. Para admitir la comunicación de videoconferencia y cámara web.
+
+    **Justificación:** El objetivo fundamental de Azure AI Vision Image Analysis es procesar imágenes para identificar y extraer datos sobre sus características visuales, como objetos, etiquetas, pies de foto o texto.
+
+    **Glosario / Comentarios:** (Ninguno)
+
+2.  **Quiere usar Azure Vision Image Analysis para generar descripciones de texto sugeridas para una imagen. ¿Qué característica visual debe especificar?**
+
+    a. Etiquetas.
+
+    b. DenseCaptions. ✅
+
+    c. Lectura.
+
+    **Justificación:** Aunque `Caption` genera una descripción general, la característica `DenseCaptions` genera subtítulos o descripciones detalladas para los distintos elementos y áreas detectadas en la imagen, siendo la opción más completa para generar descripciones de texto sugeridas basadas en el contenido visual profundo.
+
+    **Glosario / Comentarios:**
+    *   **"DenseCaptions"**: Generación de subtítulos detallados por áreas de la imagen.
+    *   **"Lectura"**: Traducción de *Read* (OCR).

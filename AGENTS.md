@@ -15,7 +15,7 @@ Cada archivo de módulo debe seguir el siguiente orden de contenido para mantene
 
 ---
 
-## 1. Mejora de Contenido Teórico (Comando: "mejorar")
+## 1. Mejora de Contenido Teórico (Comando: "mejorar" o "m")
 
 Cuando se solicite **mejorar** un texto (que no sea un examen o laboratorio), el asistente debe seguir estas reglas:
 
@@ -32,7 +32,7 @@ Cuando se solicite **mejorar** un texto (que no sea un examen o laboratorio), el
 
 ---
 
-## 2. Formato de Evaluaciones (Comando: "formatear")
+## 2. Formato de Evaluaciones (Comando: "formatear" o "f")
 
 Cuando se solicite **formatear** una evaluación, se debe aplicar estrictamente el siguiente esquema:
 
@@ -58,7 +58,7 @@ Cuando se solicite **formatear** una evaluación, se debe aplicar estrictamente 
 
 ---
 
-## 3. Formato de Laboratorios (Comando: "lab")
+## 3. Formato de Laboratorios (Comando: "lab" o "l")
 
 Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente debe aplicar una automatización total e integrarlo al archivo de trabajo:
 
@@ -77,7 +77,7 @@ Cuando se solicite procesar un **laboratorio** (comando: `lab`), el asistente de
 
 ---
 
-## 4. Formato de Exámenes de Práctica (Comando: "examen")
+## 4. Formato de Exámenes de Práctica (Comando: "examen" o "e")
 
 Cuando se solicite procesar un **examen** (comando: `examen`), se debe seguir el mismo esquema de formato que en las "Evaluaciones del Módulo" (Sección 2), pero con un destino diferente.
 
@@ -115,7 +115,7 @@ Cuando se solicite procesar un **examen** (comando: `examen`), se debe seguir el
       - **Mismo Archivo:** Si son secciones teóricas, laboratorios, resúmenes o evaluaciones (comando `formatear`), se agregan al **archivo principal del módulo actual**. **NO crear archivos separados**.
         - **Nota:** Las **Evaluaciones** deben colocarse antes del Resumen.
   3.  **Ejecutar los Cambios Directamente:** El asistente **DEBE usar sus herramientas de edición** (ej. lectura/escritura) para insertar el texto definitivo directamente en los archivos correspondientes (módulo actual, diccionario, etc.), eliminando totalmente la necesidad de que el usuario copie y pegue a mano.
-  4.  **Limpiar `traductor.md` Automáticamente:** Posteriormente a la inserción exitosa, el asistente siempre modificará y vaciará el contenido de `traductor.md` de manera automática en todos los flujos (`mejorar`, `formatear`, `lab`, `examen`).
+  4.  **Limpiar `traductor.md` Automáticamente:** Posteriormente a la inserción exitosa, el asistente siempre modificará y vaciará el contenido de `traductor.md` de manera automática en todos los flujos (`mejorar`, `formatear`, `lab`, `examen`). **IMPORTANTE:** Al vaciarlo, el archivo debe quedar COMPLETAMENTE en blanco (es decir, usando solo un espacio en blanco u obviando texto), sin ningún tipo de comentario o texto placeholder como `<!-- Ingrese el próximo contenido aquí -->`.
 
 ### D. Actualización del Resumen Técnico (`RESUMEN.md`)
 
